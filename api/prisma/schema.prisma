@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  firstname   String
+  lastname    String
+  email       String       @unique
+  address     String       @unique
+  phone       String       @unique
+  dob         DateTime
+  nin         String?      @unique
+  role        String       @default("user")
+  admins      Admin[]
+  investments Investment[]
+}
+
+model Admin {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+}
+
+model Investment {
+  id             Int              @id @default(autoincrement())
+  userId         Int
+  planId         Int
+  amount         Float
+  expectedProfit Float
+  startDate      DateTime         @default(now())
+  endDate        DateTime
+  status         InvestmentStatus @default(ACTIVE)
+  createdAt      DateTime         @default(now())
+  // Relations
+  user           User             @relation(fields: [userId], references: [id])
+  plan           InvestmentPlan   @relation(fields: [planId], references: [id])
+}
+
+model InvestmentPlan {
+  id           Int          @id @default(autoincrement())
+  name         String
+  description  String?
+  // Amount limits
+  minAmount    Float
+  maxAmount    Float
+  // Returns
+  returnRate   Float // e.g. 0.2 = 20%
+  durationDays Int // e.g. 30 days
+  payoutType   PayoutType
+  returnType   ReturnType
+  // Control
+  isActive     Boolean      @default(true)
+  riskLevel    RiskLevel
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  // Relations
+  investments  Investment[]
+}
+
+enum PayoutType {
+  DAILY
+  WEEKLY
+  MONTHLY
+  END
+}
+
+enum ReturnType {
+  FIXED
+  COMPOUND
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum InvestmentStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
