@@ -1,5 +1,10 @@
 import express from 'express';
-import { getInvestments, createInvestment, updateInvestment, deleteInvestment } from '../controllers/investments';
+import {
+  getInvestments,
+  createInvestment,
+  updateInvestment,
+  deleteInvestment,
+} from '../controllers/investmentsController';
 
 const investmentRoutes = express.Router();
 

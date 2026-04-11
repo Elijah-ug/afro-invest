@@ -6,7 +6,7 @@ interface AuthRequest extends Request {
 }
 
 export const authenticateUser = (req: AuthRequest, res: Response, next: NextFunction) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '');
+  const token = req.cookies?.accessToken;
   console.log('token here==>', token);
   if (!token) {
     return res.status(401).json({ message: 'Access denied. No token provided.' });

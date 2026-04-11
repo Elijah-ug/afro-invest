@@ -20,8 +20,7 @@ export const Login: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log('name==>', name);
-    console.log('value==>', value);
+    
     setFormData((prev) => ({
       ...prev,
       [name]: value,

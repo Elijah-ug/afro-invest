@@ -60,43 +60,19 @@ export const Register = () => {
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (
-      !formData.firstname ||
-      !formData.lastname ||
-      !formData.email ||
-      !formData.dob ||
-      !formData.password ||
-      !formData.confirmPassword
-    ) {
-      toast.error('Please fill in all required fields 💛');
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      return toast.error('Passwords do not match 😕');
-    }
-
-    if (formData.password.length < 6) {
-      toast.error('Password must be at least 6 characters 🔒');
-      return;
-    }
-
-    if (!formData.agreeToTerms) {
-      toast.error('Please agree to the Terms & Privacy Policy ✨');
-      return;
-    }
-
     try {
       const { confirmPassword, agreeToTerms, ...userData } = formData;
-      await register(userData).unwrap();
-      toast.success('Account created successfully! Welcome to Afro Invest 🌍');
-      return navigate('/dashboard');
+      const res = await register(userData).unwrap();
+      toast.success(res?.message);
+      console.log('Response==>', res);
+      
+      return navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
       toast.error('Oops! Registration failed. Please try again 💔');
     }
   };
-  console.log('Form data==>', formData);
+  // console.log('Form data==>', formData);
   // For the cute date picker trigger
   const selectedDate = formData.dob ? new Date(formData.dob) : undefined;
   return (
