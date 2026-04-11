@@ -50,7 +50,7 @@ export const MainLayout = () => {
 
             {/* Mobile Menu Button */}
             <button
-              disabled
+              // disabled
               onClick={() => setIsOpen(!isOpen)}
               className='md:hidden p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-white/10'
               aria-label='Toggle menu'
