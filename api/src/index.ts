@@ -22,6 +22,7 @@ app.use(`${baseurl}/investments`, investmentRoutes);
 app.use(errorHandler);
 
 // Start server
+console.log('Port==>', PORT);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

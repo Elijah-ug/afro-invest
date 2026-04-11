@@ -22,8 +22,17 @@ model User {
   dob         DateTime
   nin         String?      @unique
   role        String       @default("user")
+  password    String
   admins      Admin[]
   investments Investment[]
+  ambassadors Ambassador[]
+}
+
+model Ambassador {
+  id     Int              @id @default(autoincrement())
+  status AmbassadorStatus @default(PENDING)
+  userId Int
+  user   User             @relation(fields: [userId], references: [id])
 }
 
 model Admin {
@@ -66,6 +75,12 @@ model InvestmentPlan {
   updatedAt    DateTime     @updatedAt
   // Relations
   investments  Investment[]
+}
+
+enum AmbassadorStatus {
+  PENDING
+  CANCELLED
+  APPROVED
 }
 
 enum PayoutType {
