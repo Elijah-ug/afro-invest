@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Footer } from '@/components/Footer';
+import { ToastContainer } from 'react-toastify';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -77,6 +78,17 @@ export const MainLayout = () => {
       <main className='py-8 pb-16'>
         <Outlet />
       </main>
+
+      <ToastContainer
+        position='bottom-left'
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme='colored'
+      />
 
       <Footer />
     </div>

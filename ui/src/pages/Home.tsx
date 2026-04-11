@@ -6,8 +6,11 @@ import { Starts } from './subPageComponents/mome/Starts';
 import { Features } from './subPageComponents/mome/Features';
 import { HighlightsMarque } from './subPageComponents/mome/HighlightsMarque';
 import { BecomeOurAmbassador } from './subPageComponents/mome/BecomeOurAmbassador';
+import { useGetUserInfoQuery } from '@/store/features/userQuery';
 
 export const Home = () => {
+  const { data } = useGetUserInfoQuery();
+  console.log('Data from backend==>', data);
   return (
     <div className='space-y-16'>
       {/* Hero Section with Background Video - Full Width */}

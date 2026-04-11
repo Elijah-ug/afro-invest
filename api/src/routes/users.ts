@@ -6,7 +6,8 @@ import { validateRequest } from '../middleware/validateRequest';
 const userRoutes = express.Router();
 
 userRoutes.get('/', getUsers);
-userRoutes.post('/', validateRequest(signupUserSchema), createUser);
+userRoutes.post('/register', validateRequest(signupUserSchema), createUser);
+// userRoutes.post('/login', validateRequest(signupUserSchema), createUser);
 userRoutes.put('/:id', updateUser);
 userRoutes.delete('/:id', deleteUser);
 

@@ -4,23 +4,42 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Eye, EyeOff, Mail, Lock, User, Phone, ArrowRight, UserPlus, Network } from 'lucide-react';
+import {
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  User,
+  Phone,
+  ArrowRight,
+  UserPlus,
+  Network,
+  Calendar as CalendarIcon,
+} from 'lucide-react';
+import { useRegisterMutation } from '@/store/features/userQuery';
+import { toast } from 'react-toastify';
+import { Calendar } from '@/components/ui/calendar'; // import if not already in DatePicker
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { cn } from '@/lib/utils'; // make sure you have this
 
 export const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
     phone: '',
     address: '',
+    dob: '',
+    nin: '',
     password: '',
     confirmPassword: '',
     agreeToTerms: false,
   });
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [register, { isLoading }] = useRegisterMutation();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -30,189 +49,253 @@ export const Register = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleDateChange = (date?: Date) => {
+    setFormData((prev) => ({
+      ...prev,
+      dob: date ? date.toISOString() : '',
+    }));
+    console.log('Date of birth==>', formData.dob);
+  };
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validation
     if (
-      !formData.firstName ||
-      !formData.lastName ||
+      !formData.firstname ||
+      !formData.lastname ||
       !formData.email ||
+      !formData.dob ||
       !formData.password ||
       !formData.confirmPassword
     ) {
-      alert('Please fill in all required fields');
+      toast.error('Please fill in all required fields 💛');
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match');
-      return;
+      return toast.error('Passwords do not match 😕');
     }
 
     if (formData.password.length < 6) {
-      alert('Password must be at least 6 characters');
+      toast.error('Password must be at least 6 characters 🔒');
       return;
     }
 
     if (!formData.agreeToTerms) {
-      alert('Please agree to the Terms of Service and Privacy Policy');
+      toast.error('Please agree to the Terms & Privacy Policy ✨');
       return;
     }
 
-    setIsLoading(true);
-
-    // Simulate registration process
-    setTimeout(() => {
-      setIsLoading(false);
-      // For now, just navigate to dashboard on successful registration
-      navigate('/dashboard');
-    }, 2000);
+    try {
+      const { confirmPassword, agreeToTerms, ...userData } = formData;
+      await register(userData).unwrap();
+      toast.success('Account created successfully! Welcome to Afro Invest 🌍');
+      return navigate('/dashboard');
+    } catch (error) {
+      console.error('Registration failed:', error);
+      toast.error('Oops! Registration failed. Please try again 💔');
+    }
   };
-
+  console.log('Form data==>', formData);
+  // For the cute date picker trigger
+  const selectedDate = formData.dob ? new Date(formData.dob) : undefined;
   return (
     <div className='min-h-screen bg-web3-animated flex items-center justify-center px-4 py-12'>
-      <div className='w-full max-w-md'>
+      <div className=''>
         {/* Logo/Brand */}
         <div className='text-center mb-8'>
-          <Link to='/' className='text-3xl font-bold text-gradient-web3 hover:text-cyan-400 transition-colors'>
-            Afro Invest
+          <Link to='/' className='text-3xl font-bold text-linear-web3 hover:text-cyan-400 transition-all'>
+            Afro Invest 🌍
           </Link>
-          <p className='text-slate-400 mt-2'>Join Africa's leading investment platform</p>
+          <p className='text-slate-400 mt-2'>Join Africa's leading investment platform 💰</p>
         </div>
 
         {/* Register Card */}
-        <Card className='bg-slate-800/50 border border-slate-700 backdrop-blur-sm shadow-2xl glow-purple sm:w-xl'>
-          <CardHeader className='space-y-1 pb-6'>
-            <CardTitle className='text-2xl font-bold text-center text-white'>Create Account</CardTitle>
-            <CardDescription className='text-center text-slate-400'>
-              Start your investment journey today
+        <Card className='bg-slate-800/60 border border-slate-700/80 backdrop-blur-xl shadow-2xl rounded-3xl overflow-hidden sm:w-lg lg:w-2xl w-xs'>
+          <CardHeader className='space-y-1 pb-6 text-center'>
+            <CardTitle className='text-3xl font-bold text-white tracking-tight'>Create Account ✨</CardTitle>
+            <CardDescription className='text-slate-400'>
+              Let's get you started on your investment journey
             </CardDescription>
           </CardHeader>
 
-          <CardContent>
-            <form onSubmit={handleSubmit} className='space-y-4'>
+          <CardContent className='px-8'>
+            <form onSubmit={handleSubmit} className='space-y-6'>
               {/* Name Fields */}
               <div className='grid grid-cols-2 gap-4'>
                 <div className='space-y-2'>
-                  <Label htmlFor='firstName' className='text-slate-300'>
+                  <Label htmlFor='firstname' className='text-slate-300'>
                     First Name
                   </Label>
                   <div className='relative'>
-                    <User className='absolute left-3 top-4 h-4 w-4 text-slate-500' />
+                    <User className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
                     <Input
-                      id='firstName'
-                      name='firstName'
+                      id='firstname'
+                      name='firstname'
                       type='text'
-                      placeholder='John'
-                      value={formData.firstName}
+                      placeholder='Aisha'
+                      value={formData.firstname}
                       onChange={handleInputChange}
-                      className='pl-9 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-purple-400 focus:ring-purple-400/20 h-12'
+                      className='pl-9 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
                       required
                     />
                   </div>
                 </div>
 
                 <div className='space-y-2'>
-                  <Label htmlFor='lastName' className='text-slate-300'>
+                  <Label htmlFor='lastname' className='text-slate-300'>
                     Last Name
                   </Label>
                   <div className='relative'>
-                    <User className='absolute left-3 top-4 h-4 w-4 text-slate-500' />
+                    <User className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
                     <Input
-                      id='lastName'
-                      name='lastName'
+                      id='lastname'
+                      name='lastname'
                       type='text'
-                      placeholder='Doe'
-                      value={formData.lastName}
+                      placeholder='Okello'
+                      value={formData.lastname}
                       onChange={handleInputChange}
-                      className='pl-9 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-purple-400 focus:ring-purple-400/20 h-12'
+                      className='pl-9 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
                       required
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Email Field */}
+              {/* Email */}
               <div className='space-y-2'>
                 <Label htmlFor='email' className='text-slate-300'>
                   Email Address
                 </Label>
                 <div className='relative'>
-                  <Mail className='absolute left-3 top-4 h-5 w-5 text-slate-500' />
+                  <Mail className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
                   <Input
                     id='email'
                     name='email'
                     type='email'
-                    placeholder='john@example.com'
+                    placeholder='aisha@awesome.com'
                     value={formData.email}
                     onChange={handleInputChange}
-                    className='pl-10 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-purple-400 focus:ring-purple-400/20 h-12'
+                    className='pl-10 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
                     required
                   />
                 </div>
               </div>
 
-              {/* Address Field */}
+              {/* Cute Date of Birth */}
+              <div className='space-y-2'>
+                <Label htmlFor='dob' className='text-slate-300 flex items-center gap-2'>
+                  Date of Birth{' '}
+                  <span className='text-xs text-purple-400'>(you'll be 36 in 2026 if born in 1990 🎂)</span>
+                </Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant='outline'
+                      className={cn(
+                        'w-full h-12 justify-start text-left font-normal rounded-2xl border-slate-600 bg-slate-900/70 hover:bg-slate-900/90 focus:border-purple-400',
+                        !selectedDate && 'text-slate-500',
+                      )}
+                    >
+                      <CalendarIcon className='mr-3 h-4 w-4 text-purple-400' />
+                      {selectedDate ? selectedDate.toLocaleDateString('en-GB') : 'Select your birth date 🗓️'}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className='w-auto p-0 rounded-3xl' align='start'>
+                    <Calendar
+                      mode='single'
+                      selected={selectedDate}
+                      onSelect={handleDateChange}
+                      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+                      fromYear={1900}
+                      toYear={new Date().getFullYear()}
+                      initialFocus
+                      className='rounded-3xl p-4'
+                    />
+                  </PopoverContent>
+                </Popover>
+                <p className='text-xs text-slate-500 pl-1'>Quick year jump included – no more endless clicking! 💕</p>
+              </div>
+
+              {/* Public Address */}
               <div className='space-y-2'>
                 <Label htmlFor='address' className='text-slate-300'>
-                  Public Address
+                  Public Address (Wallet)
                 </Label>
                 <div className='relative'>
-                  <Network className='absolute left-3 top-4 h-4 w-4 text-slate-500' />
+                  <Network className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
                   <Input
                     id='address'
                     name='address'
                     type='text'
-                    placeholder='0xfDP.....'
+                    placeholder='0xFDP...1234'
                     value={formData.address}
                     onChange={handleInputChange}
-                    className='pl-9 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-purple-400 focus:ring-purple-400/20 h-12'
+                    className='pl-9 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
                   />
                 </div>
               </div>
 
-              {/* Phone Field */}
+              {/* NIN */}
+              <div className='space-y-2'>
+                <Label htmlFor='nin' className='text-slate-300'>
+                  National ID Number (optional)
+                </Label>
+                <div className='relative'>
+                  <Network className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
+                  <Input
+                    id='nin'
+                    name='nin'
+                    type='text'
+                    placeholder='1234-5678-9012'
+                    value={formData.nin}
+                    onChange={handleInputChange}
+                    className='pl-9 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
+                  />
+                </div>
+              </div>
+
+              {/* Phone */}
               <div className='space-y-2'>
                 <Label htmlFor='phone' className='text-slate-300'>
                   Phone Number
                 </Label>
                 <div className='relative'>
-                  <Phone className='absolute left-3 top-4 h-4 w-4 text-slate-500' />
+                  <Phone className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
                   <Input
                     id='phone'
                     name='phone'
                     type='tel'
-                    placeholder='+256 XXX XXX XXX'
+                    placeholder='+256 700 123 456'
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className='pl-9 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-purple-400 focus:ring-purple-400/20 h-12'
+                    className='pl-9 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
                   />
                 </div>
-                <p className='text-xs text-slate-500'>We'll use this for account security and notifications</p>
+                <p className='text-xs text-slate-500 pl-1'>For security & important updates 📲</p>
               </div>
 
-              {/* Password Fields */}
+              {/* Passwords */}
               <div className='space-y-2'>
                 <Label htmlFor='password' className='text-slate-300'>
                   Password
                 </Label>
                 <div className='relative'>
-                  <Lock className='absolute left-3 top-4 h-4 w-4 text-slate-500' />
+                  <Lock className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
                   <Input
                     id='password'
                     name='password'
                     type={showPassword ? 'text' : 'password'}
-                    placeholder='Create a strong password'
+                    placeholder='Create a strong password 🔐'
                     value={formData.password}
                     onChange={handleInputChange}
-                    className='pl-9 pr-9 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-purple-400 focus:ring-purple-400/20 h-12'
+                    className='pl-9 pr-10 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
                     required
                   />
                   <button
                     type='button'
                     onClick={() => setShowPassword(!showPassword)}
-                    className='absolute right-3 top-4 text-slate-500 hover:text-slate-400 transition-colors'
+                    className='absolute right-3 top-3.5 text-slate-400 hover:text-purple-400'
                   >
                     {showPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
                   </button>
@@ -224,7 +307,7 @@ export const Register = () => {
                   Confirm Password
                 </Label>
                 <div className='relative'>
-                  <Lock className='absolute left-3 top-4 h-4 w-4 text-slate-500' />
+                  <Lock className='absolute left-3 top-3.5 h-4 w-4 text-purple-400' />
                   <Input
                     id='confirmPassword'
                     name='confirmPassword'
@@ -232,93 +315,75 @@ export const Register = () => {
                     placeholder='Confirm your password'
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
-                    className='pl-9 pr-9 bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-500 focus:border-purple-400 focus:ring-purple-400/20 h-12'
+                    className='pl-9 pr-10 bg-slate-900/70 border-slate-600 rounded-xl h-12 focus:border-purple-400 focus:ring-purple-500/30 placeholder:text-slate-500'
                     required
                   />
                   <button
                     type='button'
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className='absolute right-3 top-4 text-slate-500 hover:text-slate-400 transition-colors'
+                    className='absolute right-3 top-3.5 text-slate-400 hover:text-purple-400'
                   >
                     {showConfirmPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
                   </button>
                 </div>
               </div>
 
-              {/* Terms Agreement */}
-              <div className='flex items-start space-x-3'>
+              {/* Terms */}
+              <div className='flex items-start gap-3'>
                 <input
                   id='agreeToTerms'
                   name='agreeToTerms'
                   type='checkbox'
                   checked={formData.agreeToTerms}
                   onChange={handleInputChange}
-                  className='mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-slate-600 rounded bg-slate-900/50'
+                  className='mt-1 h-5 w-5 accent-purple-500 border-slate-600 bg-slate-900/70 rounded'
                   required
                 />
-                <div className='text-sm'>
-                  <label htmlFor='agreeToTerms' className='text-slate-300'>
-                    I agree to the{' '}
-                    <Link to='/terms' className='text-purple-400 hover:text-purple-300 transition-colors underline'>
-                      Terms of Service
-                    </Link>{' '}
-                    and{' '}
-                    <Link to='/privacy' className='text-purple-400 hover:text-purple-300 transition-colors underline'>
-                      Privacy Policy
-                    </Link>
-                  </label>
-                </div>
+                <label htmlFor='agreeToTerms' className='text-sm text-slate-300 leading-relaxed'>
+                  I agree to the{' '}
+                  <Link to='/terms' className='text-purple-400 hover:text-purple-300 underline'>
+                    Terms of Service
+                  </Link>{' '}
+                  and{' '}
+                  <Link to='/privacy' className='text-purple-400 hover:text-purple-300 underline'>
+                    Privacy Policy
+                  </Link>
+                </label>
               </div>
 
               {/* Submit Button */}
               <Button
                 type='submit'
-                className='w-full bg-linear-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-semibold py-5 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 glow-purple'
                 disabled={isLoading}
+                className='w-full h-14 text-lg font-semibold rounded-2xl bg-linear-to-r from-purple-500 via-pink-500 to-violet-500 hover:from-purple-600 hover:via-pink-600 hover:to-violet-600 shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-[0.985]'
               >
                 {isLoading ? (
-                  <div className='flex items-center space-x-2'>
-                    <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
-                    <span>Creating Account...</span>
-                  </div>
+                  <span className='flex items-center gap-3'>
+                    <div className='w-5 h-5 border-2 border-white/80 border-t-transparent rounded-full animate-spin' />
+                    Creating your account...
+                  </span>
                 ) : (
-                  <div className='flex items-center space-x-2'>
-                    <UserPlus className='h-4 w-4' />
-                    <span>Create Account</span>
-                    <ArrowRight className='h-4 w-4' />
-                  </div>
+                  <span className='flex items-center gap-3'>
+                    Create Account <UserPlus className='h-5 w-5' /> <ArrowRight className='h-5 w-5' />
+                  </span>
                 )}
               </Button>
             </form>
 
-            {/* Divider */}
-            <div className='relative my-6'>
-              <div className='absolute inset-0 flex items-center'>
-                <div className='w-full border-t border-slate-600'></div>
-              </div>
-              <div className='relative flex justify-center text-sm'>
-                <span className='px-2 bg-slate-800/50 text-slate-400'>Already have an account?</span>
-              </div>
-            </div>
-
-            {/* Login Link */}
-            <div className='text-center'>
-              <Link
-                to='/login'
-                className='inline-flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors font-medium'
-              >
-                <span>Sign In Instead</span>
-                <ArrowRight className='h-4 w-4' />
-              </Link>
+            {/* Already have account */}
+            <div className='text-center mt-8'>
+              <p className='text-slate-400 text-sm'>
+                Already have an account?{' '}
+                <Link to='/login' className='text-purple-400 hover:text-purple-300 font-medium underline'>
+                  Sign in here →
+                </Link>
+              </p>
             </div>
           </CardContent>
         </Card>
 
-        {/* Footer */}
-        <div className='text-center mt-8'>
-          <p className='text-sm text-slate-500'>
-            Join thousands of Africans building generational wealth through smart investing.
-          </p>
+        <div className='text-center mt-8 text-xs text-slate-500'>
+          Join thousands building generational wealth across Africa 💎
         </div>
       </div>
     </div>

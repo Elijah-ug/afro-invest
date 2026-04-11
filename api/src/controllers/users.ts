@@ -5,7 +5,9 @@ import { signupService } from '../services/signup';
 export const getUsers = async (req: Request, res: Response) => {
   try {
     // Logic to get all users
+    console.log('Call received');
     const users = await prisma.user.findMany();
+    console.log('All users==>', users);
     res.status(200).json({ message: 'Get all users', users });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching users', error });

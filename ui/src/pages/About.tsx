@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Target, Eye, Users, Shield, TrendingUp, Globe, Award, Heart } from 'lucide-react';
 
 export const About = () => {
+  
   return (
     <div className='space-y-16 py-12'>
       {/* Hero Section */}
