@@ -3,17 +3,18 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Footer } from '@/components/Footer';
 import { ToastContainer } from 'react-toastify';
-
-const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/investment-plans', label: 'Investment Plans' },
-  { to: '/profit-calculator', label: 'Profit Calculator' },
-  { to: '/login', label: 'Login' },
-];
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 export const MainLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data, isLoading } = useLoggedinUserQuery();
+  const navLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/about', label: 'About' },
+    { to: '/investment-plans', label: 'Investment Plans' },
+    { to: '/profit-calculator', label: 'Profit Calculator' },
+    data ? { to: '/dashboard', label: 'Dashboard' } : { to: '/login', label: 'Login' },
+  ];
 
   const navItemClass = ({ isActive }: { isActive: boolean }) =>
     `nav-link block py-3 px-4 rounded-xl transition-all duration-200 text-sm font-medium

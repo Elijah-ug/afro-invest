@@ -21,18 +21,18 @@ export const AppRoutes = () => {
         <Route path='/profit-calculator' element={<ProfitCalculator />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-      </Route>
 
-      {/* Dashboard Routes (Protected) */}
-      <Route
-        path='/dashboard'
-        element={
-          <RequireAuth>
-            <DashboardLayout />
-          </RequireAuth>
-        }
-      >
-        <Route index element={<Dashboard />} />
+        {/* Dashboard Routes (Protected) */}
+        <Route
+          path='/dashboard'
+          element={
+            <RequireAuth>
+              <DashboardLayout />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<Dashboard />} />
+        </Route>
       </Route>
     </Routes>
   );
