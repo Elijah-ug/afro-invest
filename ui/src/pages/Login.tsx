@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, UserPlus } from 'lucide-react';
 import { useLoginMutation } from '@/store/features/userQuery';
+import { toast } from 'react-toastify';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const Login: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -32,13 +33,15 @@ export const Login: React.FC = () => {
 
     try {
       // Call login mutation
-      await login(formData).unwrap();
-      // On success, navigate to dashboard
+      const res = await login(formData).unwrap();
+      console.log('res from login==>', res);
+      toast.success(res?.message as string);
+      // return res;
       navigate('/dashboard');
     } catch (error) {
       // Handle login error
       console.error('Login failed:', error);
-      alert('Login failed. Please check your credentials.');
+      toast.error('Login failed. Please check your credentials.');
     }
   };
 

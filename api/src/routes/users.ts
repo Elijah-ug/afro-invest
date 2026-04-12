@@ -13,8 +13,7 @@ userRoutes.post('/register', validateRequest(signupUserSchema), store);
 userRoutes.post('/login', validateRequest(loginSchema), userLoginController);
 userRoutes.put('/update', authenticateUser, update);
 userRoutes.delete('/destroy', authenticateUser, destroy);
-userRoutes.get('/loggedin-user', authenticateUser, loggedinUser);
+userRoutes.get('/users/loggedin-user', authenticateUser, loggedinUser);
 userRoutes.get('/:id', show);
-// userRoutes.get('/', index);
 
 export default userRoutes;

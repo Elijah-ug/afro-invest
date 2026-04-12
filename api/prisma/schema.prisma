@@ -26,19 +26,25 @@ model User {
   admins      Admin[]
   investments Investment[]
   ambassadors Ambassador[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Ambassador {
-  id     Int              @id @default(autoincrement())
-  status AmbassadorStatus @default(PENDING)
-  userId Int
-  user   User             @relation(fields: [userId], references: [id])
+  id        Int              @id @default(autoincrement())
+  status    AmbassadorStatus @default(PENDING)
+  userId    Int
+  user      User             @relation(fields: [userId], references: [id])
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
 }
 
 model Admin {
-  id     Int  @id @default(autoincrement())
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Investment {
@@ -50,10 +56,11 @@ model Investment {
   startDate      DateTime         @default(now())
   endDate        DateTime
   status         InvestmentStatus @default(ACTIVE)
-  createdAt      DateTime         @default(now())
   // Relations
   user           User             @relation(fields: [userId], references: [id])
   plan           InvestmentPlan   @relation(fields: [planId], references: [id])
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
 }
 
 model InvestmentPlan {

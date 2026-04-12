@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { loginService } from '../../services/loginService';
+import { successResult } from '../../utils/successResult';
 
 export const userLoginController = async (req: Request, res: Response) => {
   try {
@@ -7,10 +8,11 @@ export const userLoginController = async (req: Request, res: Response) => {
     const result = await loginService(data);
 
     // Set HTTP-only cookies
+    // process.env.NODE_ENV === 'production'
     res.cookie('accessToken', result.accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: false,
+      sameSite: 'lax',
       maxAge: 60 * 60 * 1000, // 1 hour
     });
 
@@ -22,14 +24,8 @@ export const userLoginController = async (req: Request, res: Response) => {
     });
 
     // pass safe user properties
-    const { password, ...secureUser } = result.user;
-    res.status(200).json({
-      success: true,
-      message: 'Login successful',
-      data: {
-        user: secureUser,
-      },
-    });
+    return successResult(res, { result }, 'Login successful');
+   
   } catch (error: any) {
     res.status(401).json({
       success: false,

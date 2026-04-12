@@ -1,0 +1,18 @@
+/*
+  Warnings:
+
+  - Added the required column `updatedAt` to the `Admin` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `updatedAt` to the `Ambassador` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `updatedAt` to the `Investment` table without a default value. This is not possible if the table is not empty.
+
+*/
+-- AlterTable
+ALTER TABLE "Admin" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Ambassador" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Investment" ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL;

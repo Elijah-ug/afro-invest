@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import { signupService } from '../services/signup';
-import { loggedInUserService } from '../services/loggedInUserService';
 import { successResult } from '../utils/successResult';
 import { unsuccessfulResult } from '../utils/unsuccessfulResult';
 import { prisma } from '../../lib/prisma';
@@ -57,8 +56,8 @@ export const destroy = async (req: Request, res: Response) => {
 
 export const loggedinUser = async (req: Request, res: Response) => {
   try {
-    const user = await loggedInUserService((req as any).user?.id);
-
+    const id = (req as any).user?.id;
+    const user = await prisma.user.findUnique({ where: { id }, select: safeData });
     return successResult(res, { user }, 'User retrieved successfully');
   } catch (error: any) {
     console.error('Error fetching logged-in user:', error);

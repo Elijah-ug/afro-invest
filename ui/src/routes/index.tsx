@@ -7,7 +7,7 @@ import { InvestmentPlans } from '@/pages/InvestmentPlans';
 import { ProfitCalculator } from '@/pages/ProfitCalculator';
 import { Login } from '@/pages/Login';
 import { Register } from '@/pages/Register';
-import { Dashboard } from '@/pages/Dashboard';
+import { Dashboard } from '@/pages/user/dashboard';
 import { RequireAuth } from './ProtectedRoute';
 
 export const AppRoutes = () => {

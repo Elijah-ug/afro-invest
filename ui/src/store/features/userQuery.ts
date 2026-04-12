@@ -2,13 +2,27 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const userSlice = createApi({
   reducerPath: 'userPath',
-  baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BASE_URL}/users` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_BASE_URL}/users`,
+    credentials: 'include',
+    mode: 'cors',
+  }),
+  tagTypes: ['UsersAPI'],
   endpoints: (builder) => ({
     getUserInfo: builder.query<any, void>({
       query: () => ({
         url: '/',
         method: 'GET',
       }),
+      providesTags: ['UsersAPI'],
+    }),
+
+    loggedinUser: builder.query<any, void>({
+      query: () => ({
+        url: '/users/loggedin-user',
+        method: 'GET',
+      }),
+      providesTags: ['UsersAPI'],
     }),
     // Login mutation
     login: builder.mutation({
@@ -17,6 +31,7 @@ export const userSlice = createApi({
         method: 'POST',
         body: credentials,
       }),
+      invalidatesTags: ['UsersAPI'],
     }),
     // Register mutation
     register: builder.mutation({
@@ -25,7 +40,8 @@ export const userSlice = createApi({
         method: 'POST',
         body: userData,
       }),
+      invalidatesTags: ['UsersAPI'],
     }),
   }),
 });
-export const { useGetUserInfoQuery, useLoginMutation, useRegisterMutation } = userSlice;
+export const { useGetUserInfoQuery, useLoginMutation, useRegisterMutation, useLoggedinUserQuery } = userSlice;

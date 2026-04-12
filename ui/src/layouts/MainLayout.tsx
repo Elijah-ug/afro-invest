@@ -80,7 +80,7 @@ export const MainLayout = () => {
       </main>
 
       <ToastContainer
-        position='bottom-left'
+        position='top-right'
         autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}

@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import adminRoutes from './routes/admin';
 import investmentRoutes from './routes/investments';
@@ -9,9 +10,18 @@ import { errorHandler } from './middleware/errorHandler';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
 app.use(express.json());
+// cookie parser middleware
+app.use(cookieParser());
+// Middleware
+app.use(
+  cors({
+    origin: ['http://localhost:5173', 'https://afro-invest.vercel.app'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }),
+);
 const baseurl = '/afro-invest/api/v1';
 // Routes
 app.use(`${baseurl}/users`, userRoutes);
