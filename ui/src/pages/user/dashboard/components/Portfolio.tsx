@@ -16,7 +16,7 @@ export const Portfolio = ({ user }: PortfolioProps) => {
   const totalValue = holdings.reduce((sum: number, item: any) => sum + item.value, 0);
 
   return (
-    <div className='space-y-6'>
+    <div className='space-y-16'>
       <div className='flex flex-col gap-4 md:flex-row md:items-end md:justify-between'>
         <div>
           <h1 className='text-3xl font-bold text-white'>Portfolio Overview</h1>

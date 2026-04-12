@@ -21,6 +21,9 @@ export const ProfitCalculator = () => {
   } | null>(null);
   const [error, setError] = useState('');
 
+  const handleSetAmount = (val: string) => {
+    setRate(val);
+  };
   const calculateProfit = () => {
     setError('');
     setResult(null);
@@ -68,7 +71,7 @@ export const ProfitCalculator = () => {
   };
 
   return (
-    <div className='space-y-16 py-12'>
+    <div className='space-y-16'>
       {/* Hero Section */}
       <section className='relative overflow-hidden bg-linear-to-br from-green-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20'>
         <div className='absolute inset-0 bg-grid-pattern opacity-5'></div>
@@ -80,13 +83,13 @@ export const ProfitCalculator = () => {
             >
               Profit Calculator
             </Badge>
-            <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight'>
+            <h1 className='text-xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight'>
               Calculate Your{' '}
               <span className='text-transparent bg-clip-text bg-linear-to-r from-green-600 to-blue-600'>
                 Investment Returns
               </span>
             </h1>
-            <p className='text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed'>
+            <p className=' md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed'>
               Use our advanced calculator to estimate your potential earnings and plan your investment strategy with
               confidence.
             </p>
@@ -132,7 +135,9 @@ export const ProfitCalculator = () => {
                   <div className='p-3 bg-blue-100 dark:bg-blue-900/20 rounded-full mr-4'>
                     <Calculator className='h-6 w-6 text-blue-600 dark:text-blue-400' />
                   </div>
-                  <CardTitle className='text-2xl text-gray-900 dark:text-white'>Investment Calculator</CardTitle>
+                  <CardTitle className='text-lg sm:text-2xl text-gray-900 dark:text-white'>
+                    Investment Calculator
+                  </CardTitle>
                 </div>
                 <p className='text-gray-600 dark:text-gray-300'>
                   Enter your investment details below to calculate potential returns
@@ -175,14 +180,17 @@ export const ProfitCalculator = () => {
                       <TrendingUp className='h-4 w-4 mr-2 text-blue-600' />
                       Annual Interest Rate (%)
                     </Label>
-                    <Input
-                      id='rate'
-                      type='number'
-                      placeholder='e.g., 15'
-                      value={rate}
-                      onChange={(e) => setRate(e.target.value)}
-                      className='w-full text-lg py-3'
-                    />
+                    <div className='flex items-center gap-2'>
+                      {['5', '7', '9'].map((val, i) => (
+                        <Button
+                          key={i}
+                          onClick={() => handleSetAmount(val)}
+                          className={`${rate === val ? 'bg-violet-500' : 'bg-white/20'}`}
+                        >
+                          {val}
+                        </Button>
+                      ))}
+                    </div>
                   </div>
 
                   <div>
@@ -219,6 +227,11 @@ export const ProfitCalculator = () => {
                     Reset
                   </Button>
                 </div>
+                {result && (
+                  <div className='text-xs bg-violet-900 text-center w-[50%] rounded-full'>
+                    scroll down to see results
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -306,50 +319,55 @@ export const ProfitCalculator = () => {
       <section className='py-16 bg-gray-50 dark:bg-gray-900'>
         <div className='max-w-6xl mx-auto px-2 sm:px-4 lg:px-6'>
           <div className='text-center mb-12'>
-            <h2 className='text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4'>
+            <h2 className='text-xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4'>
               Understanding Your Investments
             </h2>
-            <p className='text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto'>
+            <p className='sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto'>
               Learn how compound interest can help grow your wealth over time
             </p>
           </div>
 
-          <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            <Card className='hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border-0 shadow-lg'>
-              <CardContent className='p-6'>
-                <div className='p-3 bg-blue-100 dark:bg-blue-900/20 rounded-full w-fit mb-4'>
-                  <TrendingUp className='h-6 w-6 text-blue-600 dark:text-blue-400' />
-                </div>
-                <h3 className='font-semibold text-gray-900 dark:text-white mb-2'>Compound Interest</h3>
-                <p className='text-sm text-gray-600 dark:text-gray-300'>
-                  Earn interest on both your principal and previously earned interest, accelerating your wealth growth.
-                </p>
-              </CardContent>
-            </Card>
+          <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3 place-items-center'>
+            {[
+              {
+                icon: TrendingUp,
+                title: 'Compound Interest',
+                description:
+                  'Earn interest on both your principal and previously earned interest, accelerating your wealth growth.',
+                iconBg: 'bg-blue-100 dark:bg-blue-900/20',
+                iconColor: 'text-blue-600 dark:text-blue-400',
+              },
+              {
+                icon: Clock,
+                title: 'Time is Key',
+                description: 'The longer you invest, the more time compound interest has to work in your favor.',
+                iconBg: 'bg-green-100 dark:bg-green-900/20',
+                iconColor: 'text-green-600 dark:text-green-400',
+              },
+              {
+                icon: Target,
+                title: 'Start Small',
+                description:
+                  'Even small amounts invested regularly can grow significantly over time with compound interest.',
+                iconBg: 'bg-purple-100 dark:bg-purple-900/20',
+                iconColor: 'text-purple-600 dark:text-purple-400',
+              },
+            ].map(({ icon: Icon, title, description, iconBg, iconColor }) => (
+              <Card
+                key={title}
+                className='hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border-0 shadow-lg w-xs sm:w-sm lg:w-auto  h-full'
+              >
+                <CardContent className='p-6'>
+                  <div className={`p-3 ${iconBg} rounded-full w-fit mb-4`}>
+                    <Icon className={`h-6 w-6 ${iconColor}`} />
+                  </div>
 
-            <Card className='hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border-0 shadow-lg'>
-              <CardContent className='p-6'>
-                <div className='p-3 bg-green-100 dark:bg-green-900/20 rounded-full w-fit mb-4'>
-                  <Clock className='h-6 w-6 text-green-600 dark:text-green-400' />
-                </div>
-                <h3 className='font-semibold text-gray-900 dark:text-white mb-2'>Time is Key</h3>
-                <p className='text-sm text-gray-600 dark:text-gray-300'>
-                  The longer you invest, the more time compound interest has to work in your favor.
-                </p>
-              </CardContent>
-            </Card>
+                  <h3 className='font-semibold text-gray-900 dark:text-white mb-2'>{title}</h3>
 
-            <Card className='hover:shadow-lg transition-all duration-300 bg-white dark:bg-gray-800 border-0 shadow-lg'>
-              <CardContent className='p-6'>
-                <div className='p-3 bg-purple-100 dark:bg-purple-900/20 rounded-full w-fit mb-4'>
-                  <Target className='h-6 w-6 text-purple-600 dark:text-purple-400' />
-                </div>
-                <h3 className='font-semibold text-gray-900 dark:text-white mb-2'>Start Small</h3>
-                <p className='text-sm text-gray-600 dark:text-gray-300'>
-                  Even small amounts invested regularly can grow significantly over time with compound interest.
-                </p>
-              </CardContent>
-            </Card>
+                  <p className='text-sm text-gray-600 dark:text-gray-300'>{description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

@@ -7,7 +7,7 @@ import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 export const MainLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data, isLoading } = useLoggedinUserQuery();
+  const { data } = useLoggedinUserQuery();
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
