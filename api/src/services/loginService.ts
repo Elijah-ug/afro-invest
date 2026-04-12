@@ -24,7 +24,7 @@ export const loginService = async (data: loginUserInput) => {
   // Generate JWT tokens
   const accessToken = jwt.sign(
     {
-      userId: user.id,
+      id: user.id,
       email: user.email,
     },
     process.env.JWT_SECRET as string,
@@ -32,7 +32,7 @@ export const loginService = async (data: loginUserInput) => {
   );
   const refreshToken = jwt.sign(
     {
-      userId: user.id,
+      id: user.id,
       email: user.email,
     },
     process.env.JWT_SECRET as string,
