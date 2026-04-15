@@ -1,23 +1,7 @@
-// {
-//   "compilerOptions": {
-//     "target": "ES2022",
-//     "module": "CommonJS",
-
-//     "rootDir": "src",
-//     "outDir": "dist",
-//     "esModuleInterop": true,
-//     "skipLibCheck": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "strict": true,
-//     "typeRoots": ["./types", "./node_modules/@types"],
-//     "ignoreDeprecations": "6.0"
-//   },
-//   "include": ["src", "types"],
-//   "exclude": ["node_modules", "dist"]
-// }
-
 {
   "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
     "module": "CommonJS",
     "moduleResolution": "bundler",
     "target": "ES2023",
