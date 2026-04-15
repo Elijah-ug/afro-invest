@@ -56,7 +56,6 @@ model Investment {
   startDate      DateTime         @default(now())
   endDate        DateTime
   status         InvestmentStatus @default(ACTIVE)
-  // Relations
   user           User             @relation(fields: [userId], references: [id])
   plan           InvestmentPlan   @relation(fields: [planId], references: [id])
   createdAt      DateTime         @default(now())
@@ -109,6 +108,7 @@ enum RiskLevel {
 }
 
 enum InvestmentStatus {
+  PENDING
   ACTIVE
   COMPLETED
   CANCELLED
