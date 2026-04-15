@@ -1,9 +1,24 @@
 import type { Request, Response } from 'express';
-
+import { prisma } from '../../lib/prisma';
+interface AuthRequest extends Request {
+  user?: any;
+}
 export const getAdmins = async (req: Request, res: Response) => {
   try {
     // Logic to get all admins
-    res.status(200).json({ message: 'Get all admins' });
+    const admins = await prisma.user.findMany({ where: { role: 'admin' } });
+    res.status(200).json({ message: 'Get all admins', admins });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching admins', error });
+  }
+};
+
+export const getAdmin = async (req: AuthRequest, res: Response) => {
+  try {
+    // Logic to get all admins
+    const id = req.user.id;
+    const admin = await prisma.user.findUnique({ where: { id, role: 'admin' } });
+    res.status(200).json({ message: 'Get all admins', admin });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching admins', error });
   }
