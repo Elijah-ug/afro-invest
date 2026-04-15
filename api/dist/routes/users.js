@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const usersController_1 = require("../controllers/usersController");
+const user_1 = require("../zod/user");
+const validateRequest_1 = require("../middleware/validateRequest");
+const loginSchema_1 = require("../zod/loginSchema");
+const userLoginController_1 = require("../controllers/auth/userLoginController");
+const auth_1 = require("../middleware/auth");
+const userRoutes = express_1.default.Router();
+userRoutes.get('/', usersController_1.index);
+userRoutes.post('/register', (0, validateRequest_1.validateRequest)(user_1.signupUserSchema), usersController_1.store);
+userRoutes.post('/login', (0, validateRequest_1.validateRequest)(loginSchema_1.loginSchema), userLoginController_1.userLoginController);
+userRoutes.put('/update', auth_1.authenticateUser, usersController_1.update);
+userRoutes.delete('/destroy', auth_1.authenticateUser, usersController_1.destroy);
+userRoutes.get('/users/loggedin-user', auth_1.authenticateUser, usersController_1.loggedinUser);
+userRoutes.get('/:id', usersController_1.show);
+exports.default = userRoutes;

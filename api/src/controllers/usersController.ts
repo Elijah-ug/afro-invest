@@ -2,8 +2,8 @@ import type { Request, Response } from 'express';
 import { signupService } from '../services/signup';
 import { successResult } from '../utils/successResult';
 import { unsuccessfulResult } from '../utils/unsuccessfulResult';
-import { prisma } from '../../lib/prisma';
 import { safeData } from '../services/userPropsService';
+import { prisma } from '../lib/prisma';
 
 export const index = async (req: Request, res: Response) => {
   try {

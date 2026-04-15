@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { prisma } from '../../lib/prisma';
 import { loginUserInput } from '../zod/loginSchema';
+import { prisma } from '../lib/prisma';
 
 export const loginService = async (data: loginUserInput) => {
   const { email, password } = data;
