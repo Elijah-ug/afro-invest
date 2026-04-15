@@ -4,23 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Eye,
-  EyeOff,
-  Mail,
-  Lock,
-  User,
-  Phone,
-  ArrowRight,
-  UserPlus,
-  Network,
-  Calendar as CalendarIcon,
-} from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone, ArrowRight, UserPlus, Network } from 'lucide-react';
 import { useRegisterMutation } from '@/store/features/userQuery';
 import { toast } from 'react-toastify';
-import { Calendar } from '@/components/ui/calendar'; // import if not already in DatePicker
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils'; // make sure you have this
+import { DateOfBirth } from '@/utils/DateOfBirth';
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -65,7 +52,7 @@ export const Register = () => {
       const res = await register(userData).unwrap();
       toast.success(res?.message);
       console.log('Response==>', res);
-      
+
       return navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
@@ -164,32 +151,7 @@ export const Register = () => {
                   Date of Birth{' '}
                   <span className='text-xs text-purple-400'>(you'll be 36 in 2026 if born in 1990 🎂)</span>
                 </Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant='outline'
-                      className={cn(
-                        'w-full h-12 justify-start text-left font-normal rounded-2xl border-slate-600 bg-slate-900/70 hover:bg-slate-900/90 focus:border-purple-400',
-                        !selectedDate && 'text-slate-500',
-                      )}
-                    >
-                      <CalendarIcon className='mr-3 h-4 w-4 text-purple-400' />
-                      {selectedDate ? selectedDate.toLocaleDateString('en-GB') : 'Select your birth date 🗓️'}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className='w-auto p-0 rounded-3xl' align='start'>
-                    <Calendar
-                      mode='single'
-                      selected={selectedDate}
-                      onSelect={handleDateChange}
-                      disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
-                      fromYear={1900}
-                      toYear={new Date().getFullYear()}
-                      initialFocus
-                      className='rounded-3xl p-4'
-                    />
-                  </PopoverContent>
-                </Popover>
+                <DateOfBirth value={selectedDate} onChange={handleDateChange} />
                 <p className='text-xs text-slate-500 pl-1'>Quick year jump included – no more endless clicking! 💕</p>
               </div>
 

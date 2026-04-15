@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, TrendingUp, Shield, Star, DollarSign, Clock, Target, Award } from 'lucide-react';
+import { Benefits } from './investmentplans/Benefits';
 
 export const InvestmentPlans = () => {
   const plans = [
@@ -78,46 +79,20 @@ export const InvestmentPlans = () => {
             >
               Investment Plans
             </Badge>
-            <h1 className='text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight'>
+            <h1 className='text-2xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight'>
               Choose Your{' '}
               <span className='text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600'>
                 Investment Path
               </span>
             </h1>
-            <p className='text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed'>
+            <p className=' md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed'>
               Select the perfect plan that matches your financial goals, risk tolerance, and investment timeline. Start
               building wealth with confidence today.
             </p>
           </div>
 
           {/* Key Benefits */}
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-16'>
-            <div className='text-center'>
-              <div className='p-4 bg-white/80 dark:bg-gray-800/80 rounded-full w-fit mx-auto mb-4 backdrop-blur-sm'>
-                <Shield className='h-8 w-8 text-blue-600' />
-              </div>
-              <h3 className='font-semibold text-gray-900 dark:text-white mb-2'>Secure & Regulated</h3>
-              <p className='text-sm text-gray-600 dark:text-gray-300'>
-                Bank-level security with full regulatory compliance
-              </p>
-            </div>
-            <div className='text-center'>
-              <div className='p-4 bg-white/80 dark:bg-gray-800/80 rounded-full w-fit mx-auto mb-4 backdrop-blur-sm'>
-                <TrendingUp className='h-8 w-8 text-green-600' />
-              </div>
-              <h3 className='font-semibold text-gray-900 dark:text-white mb-2'>Proven Returns</h3>
-              <p className='text-sm text-gray-600 dark:text-gray-300'>
-                Consistent performance with transparent reporting
-              </p>
-            </div>
-            <div className='text-center'>
-              <div className='p-4 bg-white/80 dark:bg-gray-800/80 rounded-full w-fit mx-auto mb-4 backdrop-blur-sm'>
-                <DollarSign className='h-8 w-8 text-purple-600' />
-              </div>
-              <h3 className='font-semibold text-gray-900 dark:text-white mb-2'>Low Minimums</h3>
-              <p className='text-sm text-gray-600 dark:text-gray-300'>Start investing with as little as $10</p>
-            </div>
-          </div>
+         <Benefits/>
         </div>
       </section>
 
