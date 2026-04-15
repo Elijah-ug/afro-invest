@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { prisma } from '../../lib/prisma';
+import { prisma } from '../lib/prisma';
 export const signupService = async (data: any) => {
   const hashedPassword = await bcrypt.hash(data.password, 10);
 
