@@ -9,6 +9,7 @@ import { useLoginMutation } from '@/store/features/userQuery';
 import { toast } from 'react-toastify';
 
 export const Login: React.FC = () => {
+  console.log('VITE_BASE_URL==>', import.meta.env.VITE_BASE_URL);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({

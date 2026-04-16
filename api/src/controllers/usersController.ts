@@ -17,6 +17,8 @@ export const index = async (req: Request, res: Response) => {
 export const store = async (req: Request, res: Response) => {
   try {
     const user = await signupService(req.body);
+    console.log('User created==>', user);
+
     return successResult(res, { user }, 'Account created successfully!');
   } catch (error: any) {
     console.error('Error in creating account user:', error);

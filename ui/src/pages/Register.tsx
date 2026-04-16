@@ -52,11 +52,10 @@ export const Register = () => {
       const res = await register(userData).unwrap();
       toast.success(res?.message);
       console.log('Response==>', res);
-
-      return navigate('/login');
+      // return navigate('/login');
     } catch (error) {
       console.error('Registration failed:', error);
-      toast.error('Oops! Registration failed. Please try again 💔');
+      return toast.error('Oops! Registration failed. Please try again 💔');
     }
   };
   // console.log('Form data==>', formData);
