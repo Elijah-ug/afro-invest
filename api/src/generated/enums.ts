@@ -46,6 +46,7 @@ export type RiskLevel = (typeof RiskLevel)[keyof typeof RiskLevel]
 
 
 export const InvestmentStatus = {
+  PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',
   COMPLETED: 'COMPLETED',
   CANCELLED: 'CANCELLED'
