@@ -4,8 +4,13 @@ export const userSlice = createApi({
   reducerPath: 'userPath',
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_BASE_URL}/users`,
-    credentials: 'include',
-    mode: 'cors',
+     prepareHeaders: (headers) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ['UsersAPI'],
   endpoints: (builder) => ({

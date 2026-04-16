@@ -37,7 +37,8 @@ export const Login: React.FC = () => {
       const res = await login(formData).unwrap();
       console.log('res from login==>', res);
       toast.success(res?.message as string);
-      // return res;
+      const token = await res.data.result.token;
+      localStorage.setItem('token', token);
       navigate('/dashboard');
     } catch (error) {
       // Handle login error
