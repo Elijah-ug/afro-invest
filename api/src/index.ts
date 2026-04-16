@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 // cookie parser middleware
 app.use(cookieParser());
-// Middleware
+app.set('trust proxy', 1);
+// Middleware ===== to put the origin in env ========
 app.use(
   cors({
     origin: ['http://localhost:5173', 'https://afro-invest.vercel.app'],

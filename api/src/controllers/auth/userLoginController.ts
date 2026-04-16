@@ -11,16 +11,18 @@ export const userLoginController = async (req: Request, res: Response) => {
     // process.env.NODE_ENV === 'production'
     const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('accessToken', result.accessToken, {
-      httpOnly: true, 
+      httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction? 'none':  'lax',
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
       maxAge: 60 * 60 * 1000, // 1 hour
     });
 
     res.cookie('refreshToken', result.refreshToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: isProduction? 'none':  'lax',
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
