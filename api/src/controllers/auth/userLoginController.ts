@@ -11,21 +11,20 @@ export const userLoginController = async (req: Request, res: Response) => {
     // process.env.NODE_ENV === 'production'
     res.cookie('accessToken', result.accessToken, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'none',
       maxAge: 60 * 60 * 1000, // 1 hour
     });
 
     res.cookie('refreshToken', result.refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     // pass safe user properties
     return successResult(res, { result }, 'Login successful');
-   
   } catch (error: any) {
     res.status(401).json({
       success: false,
