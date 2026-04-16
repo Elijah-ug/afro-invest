@@ -9,14 +9,12 @@ import { useLoginMutation } from '@/store/features/userQuery';
 import { toast } from 'react-toastify';
 
 export const Login: React.FC = () => {
-  console.log('VITE_BASE_URL==>', import.meta.env.VITE_BASE_URL);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
   // RTK Query mutation hook
   const [login, { isLoading }] = useLoginMutation();
 
@@ -37,7 +35,9 @@ export const Login: React.FC = () => {
       const res = await login(formData).unwrap();
       console.log('res from login==>', res);
       toast.success(res?.message as string);
-      // return res;
+      const token = await res.data.result.token;
+      console.log('token==>', token);
+      localStorage.setItem('token', token);
       navigate('/dashboard');
     } catch (error) {
       // Handle login error

@@ -22,7 +22,7 @@ export const loginService = async (data: loginUserInput) => {
   }
 
   // Generate JWT tokens
-  const accessToken = jwt.sign(
+  const token =  jwt.sign(
     {
       id: user.id,
       email: user.email,
@@ -39,9 +39,10 @@ export const loginService = async (data: loginUserInput) => {
     { expiresIn: '7d' },
   );
   return {
-    accessToken,
-    refreshToken,
+    // accessToken,
+    // refreshToken,
     user,
+    token,
   };
 };
 
