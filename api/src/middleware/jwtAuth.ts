@@ -5,13 +5,13 @@ interface AuthRequest extends Request {
 }
 export const jwtAuth = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
-
+  console.log('authHeader=>', authHeader);
   if (!authHeader) {
     console.log('No auth headers');
     return res.status(401).json({ message: 'Auth headers missing' });
   }
   const token = authHeader.split(' ')[1];
-  // console.log('Token here==>', token);
+  console.log('Token here==>', token);
   if (!token) {
     console.log('No teken found');
     return res.status(401).json({ message: 'Token missing' });
