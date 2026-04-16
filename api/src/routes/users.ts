@@ -14,7 +14,7 @@ userRoutes.post('/register', validateRequest(signupUserSchema), store);
 userRoutes.post('/login', validateRequest(loginSchema), userLoginController);
 userRoutes.put('/update', jwtAuth, update);
 userRoutes.delete('/destroy', jwtAuth, destroy);
-userRoutes.get('/users/loggedin-user', jwtAuth, loggedinUser);
+userRoutes.get('/loggedin-user', jwtAuth, loggedinUser);
 userRoutes.get('/:id', show);
 
 export default userRoutes;
