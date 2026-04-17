@@ -1,8 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Target, Eye, Users, Shield, TrendingUp, Globe, Award, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 export const About = () => {
+  const { data } = useLoggedinUserQuery();
+
   return (
     <div className='min-h-screen'>
       {/* Hero Section */}
@@ -176,7 +180,7 @@ export const About = () => {
 
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
             <button className='px-10 py-4 bg-white text-blue-700 font-semibold rounded-2xl hover:bg-gray-100 active:bg-gray-200 transition-all duration-300 shadow-lg'>
-              Start Investing Now
+              <Link to={data ? '/dashboard' : '/register'}>Start Investing Now</Link>
             </button>
             <button className='px-10 py-4 border-2 border-white text-white font-semibold rounded-2xl hover:bg-white/10 active:bg-white/5 transition-all duration-300'>
               Learn More
