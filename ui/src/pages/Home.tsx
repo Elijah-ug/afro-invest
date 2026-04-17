@@ -6,11 +6,12 @@ import { Starts } from './subPageComponents/mome/Starts';
 import { Features } from './subPageComponents/mome/Features';
 import { HighlightsMarque } from './subPageComponents/mome/HighlightsMarque';
 import { BecomeOurAmbassador } from './subPageComponents/mome/BecomeOurAmbassador';
-import { useGetUserInfoQuery } from '@/store/features/userQuery';
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
-  const { data } = useGetUserInfoQuery();
-  console.log('Data from backend==>', data);
+  const { data } = useLoggedinUserQuery();
+
   return (
     <div className='space-y-16'>
       {/* Hero Section with Background Video - Full Width */}
@@ -58,14 +59,14 @@ export const Home = () => {
                 size='lg'
                 className='px-8 py-5 sm:text-lg font-semibold bg-linear-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 shadow-cyan-500/25 hover:shadow-cyan-500/40 sm:max-w-lg max-w-xs'
               >
-                Start Investing Today
+                <Link to={data ? '/dashboard' : '/register'}> Start Investing Today</Link>
               </Button>
               <Button
                 variant='outline'
                 size='lg'
                 className='px-8 py-5 sm:text-lg border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 transition-all duration-300 backdrop-blur-sm sm:max-w-sm max-w-xs'
               >
-                Learn More
+                <Link to='/'> Learn More</Link>
               </Button>
             </div>
           </div>

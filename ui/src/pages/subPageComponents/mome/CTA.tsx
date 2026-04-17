@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const CTA: React.FC = () => {
   return (
@@ -32,7 +33,7 @@ export const CTA: React.FC = () => {
             size='lg'
             className='px-10 py-5 text-xl font-semibold bg-linear-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 shadow-cyan-500/25 hover:shadow-cyan-500/40 border border-cyan-400/50'
           >
-            Create Account Free
+            <Link to='/register'> Create An Account</Link>
           </Button>
           <p className='mt-4 text-slate-400 text-sm'>No hidden fees • Start with any amount • 24/7 support</p>
         </div>

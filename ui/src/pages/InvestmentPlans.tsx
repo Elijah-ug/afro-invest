@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, TrendingUp, Shield, Star, DollarSign, Clock, Target, Award } from 'lucide-react';
 import { Benefits } from './investmentplans/Benefits';
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
+import { Link } from 'react-router-dom';
 
 export const InvestmentPlans = () => {
   const plans = [
@@ -66,6 +68,8 @@ export const InvestmentPlans = () => {
     },
   ];
 
+  const { data } = useLoggedinUserQuery();
+
   return (
     <div className='space-y-16 py-12'>
       {/* Hero Section */}
@@ -92,7 +96,7 @@ export const InvestmentPlans = () => {
           </div>
 
           {/* Key Benefits */}
-         <Benefits/>
+          <Benefits />
         </div>
       </section>
 
@@ -187,9 +191,8 @@ export const InvestmentPlans = () => {
                   <CardFooter className='pt-6'>
                     <Button
                       className={`w-full ${plan.buttonColor} text-white font-semibold py-3 transition-all duration-300 hover:shadow-lg`}
-                      onClick={() => alert(`Investing in ${plan.name}! (Feature coming soon)`)}
                     >
-                      Start Investing
+                      <Link to={data ? '/dashboard' : '/register'}>Start Investing </Link>
                     </Button>
                   </CardFooter>
                 </Card>

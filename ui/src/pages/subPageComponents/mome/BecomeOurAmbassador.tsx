@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {  Users, Award, TrendingUp, Handshake, DollarSign } from 'lucide-react';
+import { Users, Award, TrendingUp, Handshake, DollarSign } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const whyItems = [
   {
@@ -135,11 +136,12 @@ export const BecomeOurAmbassador: React.FC = () => {
               <p className='text-lg text-white/90 mb-8'>
                 Join our ambassador program today and start building your future in investments.
               </p>
+
               <Button
                 size='lg'
                 className='w-full sm:w-auto bg-white text-violet-700 hover:bg-gray-100 font-semibold text-lg px-10 py-7 rounded-2xl shadow-lg hover:shadow-xl transition-all active:scale-[0.985]'
               >
-                Apply Now
+                <Link to='/register'>Apply Now</Link>
               </Button>
             </CardContent>
           </Card>

@@ -5,6 +5,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calculator, DollarSign, TrendingUp, Clock, Target, BarChart3, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 export const ProfitCalculator = () => {
   const [principal, setPrincipal] = useState('');
@@ -69,6 +71,7 @@ export const ProfitCalculator = () => {
     setResult(null);
     setError('');
   };
+  const { data } = useLoggedinUserQuery();
 
   return (
     <div className='space-y-16'>
@@ -292,7 +295,7 @@ export const ProfitCalculator = () => {
 
                     <div className='text-center'>
                       <Button className='w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 transition-all duration-300 hover:shadow-lg'>
-                        Start Investing Now
+                        <Link to={data ? '/dashboard' : '/register'}>Start Investing Now </Link>
                       </Button>
                     </div>
                   </CardContent>
@@ -381,7 +384,7 @@ export const ProfitCalculator = () => {
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
             <Button className='px-8 py-4 bg-white text-blue-600 font-semibold hover:bg-gray-100 transition-colors duration-300'>
-              Start Investing Today
+              <Link to={data ? '/dashboard' : '/register'}>Start Investing Now </Link>
             </Button>
             <Button
               variant='outline'
