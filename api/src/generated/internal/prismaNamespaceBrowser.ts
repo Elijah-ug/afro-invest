@@ -136,7 +136,7 @@ export const InvestmentPlanScalarFieldEnum = {
   minAmount: 'minAmount',
   maxAmount: 'maxAmount',
   returnRate: 'returnRate',
-  durationDays: 'durationDays',
+  duration: 'duration',
   payoutType: 'payoutType',
   returnType: 'returnType',
   isActive: 'isActive',

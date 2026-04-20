@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { useLoggedinUserQuery } from '@/store/features/userQuery';
 import { Gauge, BarChart3, Activity, TrendingUp, Bell, User, HelpCircle, ShieldCheck } from 'lucide-react';
 import { UserDialogue } from './UserDialogue';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 interface SidebarProps {
   activeTab: string;
@@ -44,6 +45,10 @@ export const Sidebar = ({ activeTab, setActiveTab, onClose }: SidebarProps) => {
             <span className='font-medium'>{item.label}</span>
           </Button>
         ))}
+        {/* wallet connect */}
+        <div className='mt-auto '>
+          <ConnectButton />
+        </div>
       </nav>
 
       {/* User Info */}

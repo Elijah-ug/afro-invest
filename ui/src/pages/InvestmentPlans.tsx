@@ -3,10 +3,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, TrendingUp, Shield, Star, DollarSign, Clock, Target, Award } from 'lucide-react';
 import { Benefits } from './investmentplans/Benefits';
-import { useLoggedinUserQuery } from '@/store/features/userQuery';
 import { Link } from 'react-router-dom';
 
 export const InvestmentPlans = () => {
+  
   const plans = [
     {
       id: 1,
@@ -67,8 +67,6 @@ export const InvestmentPlans = () => {
       popular: false,
     },
   ];
-
-  const { data } = useLoggedinUserQuery();
 
   return (
     <div className='space-y-16 py-12'>

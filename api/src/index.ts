@@ -6,6 +6,7 @@ import adminRoutes from './routes/admin';
 import investmentRoutes from './routes/investments';
 import userRoutes from './routes/users';
 import { errorHandler } from './middleware/errorHandler';
+import investmentPlanRoutes from './routes/investmentPlan';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ const baseurl = '/afro-invest/api/v1';
 app.use(`${baseurl}/users`, userRoutes);
 app.use(`${baseurl}/admin`, adminRoutes);
 app.use(`${baseurl}/investments`, investmentRoutes);
+app.use(`${baseurl}/investment-plans`, investmentPlanRoutes);
 
 // Global error handling
 app.use(errorHandler);

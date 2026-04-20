@@ -1,0 +1,4 @@
+
+export const afroBlocksAddress = '0xd2d8eb06E3F91f0c15257762B29CBb101518fED0';
+
+// 0x28Aa098cB391622716755425A7C125BAFE5A0220==>metaMask

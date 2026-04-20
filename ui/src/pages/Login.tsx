@@ -38,7 +38,7 @@ export const Login: React.FC = () => {
       const token = await res.data.result.token;
       console.log('token==>', token);
       localStorage.setItem('token', token);
-      navigate('/dashboard');
+      return (window.location.href = '/dashboard');
     } catch (error) {
       // Handle login error
       console.error('Login failed:', error);
