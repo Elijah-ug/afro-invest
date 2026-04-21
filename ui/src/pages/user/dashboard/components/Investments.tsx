@@ -1,8 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { useLoggedinUserQuery } from '@/store/features/userQuery';
-import { useInvestmentsQuery } from '@/store/features/investmentQuery';
-
 interface InvestmentsProps {
   user: any;
 }
@@ -10,8 +7,8 @@ interface InvestmentsProps {
 export const Investments = ({ user }: InvestmentsProps) => {
   const investments = user?.investments || [];
   // const { data: currentUser } = useLoggedinUserQuery();
-  const { data } = useInvestmentsQuery(user.id);
-  console.log('investments data==>', user);
+  // const { data } = useInvestmentsQuery(user.id);
+  // console.log('investments data==>', user);
 
   return (
     <div className='space-y-6'>

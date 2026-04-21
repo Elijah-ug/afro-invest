@@ -6,12 +6,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useInvestmentPlansQuery } from '@/store/features/investmentPlansQuery';
 import { useState } from 'react';
 import { useReceiverAddrQuery } from '@/store/features/receiverQuery';
-import { useWriteContract } from 'wagmi';
+import { usePublicClient, useWriteContract } from 'wagmi';
 import { toast } from 'react-toastify';
-import { afroBlocksAbi } from '@/abi/baseSepolia';
 import { parseUnits } from 'viem';
 import { afroBlocksAddress } from '@/abi/ercTokenAddress';
-import { useDepositMutation, useInvestmentsQuery } from '@/store/features/investmentQuery';
+import { useDepositMutation } from '@/store/features/investmentQuery';
+import { waitForTransactionReceipt } from 'viem/actions';
+import { standardERC20Abi } from '@/abi/baseSepolia';
 
 type TransactionFormProps = {
   type: 'deposit' | 'withdraw';
@@ -27,14 +28,13 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
     amount: '',
     endDate: '',
   });
-  const { writeContract, isPending } = useWriteContract();
+  const { writeContractAsync, isPending } = useWriteContract();
+  const publicClient = usePublicClient();
 
   const { data: plans } = useInvestmentPlansQuery();
   const { data } = useReceiverAddrQuery();
   const [deposit, { error }] = useDepositMutation();
   const receiver = data?.data.receiver.address;
-  const { data: investment } = useInvestmentsQuery();
-  console.log('investment==>', investment);
 
   console.log('deposit error==>', error);
 
@@ -43,21 +43,41 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
       return toast.error('Receiver address not found');
     }
 
-    const res = await deposit({
-      planId: parseInt(userPlan.planId),
-      amount: parseInt(userPlan.amount),
-      endDate: parseInt(userPlan.endDate),
-    });
-   writeContract({
-      address: afroBlocksAddress,
-      abi: afroBlocksAbi,
-      functionName: 'transfer',
-      args: [receiver, parseUnits(userPlan.amount, 18)],
-    });
-    console.log('Deposit:', userPlan);
+    try {
+      const parsedAmount = parseUnits(userPlan.amount.toString(), 18);
+      console.log('parsedAmount=>', parsedAmount);
+      const hash = await writeContractAsync({
+        address: afroBlocksAddress,
+        abi: standardERC20Abi,
+        functionName: 'transfer',
+        args: [receiver, parsedAmount],
+        // gas: 300000n,
+      });
+      console.log('Tx Hash:', hash);
+      if (!publicClient) {
+        throw new Error('Public client not available');
+      }
+      const receipt = await waitForTransactionReceipt(publicClient, { hash });
 
-    console.log('res:', res);
-    return res;
+      if (receipt.status === 'reverted') {
+        toast.error('Transaction failed');
+        return;
+      }
+      console.log('Transfer confirmed:', receipt);
+
+      const res = await deposit({
+        planId: parseInt(userPlan.planId),
+        amount: parseInt(userPlan.amount),
+        endDate: parseInt(userPlan.endDate),
+        txHash: hash,
+      });
+      console.log('Deposit:', userPlan);
+
+      console.log('res:', res);
+      return res;
+    } catch (error) {
+      console.log('Error==>', error);
+    }
     // setUserPlan({});
   };
 
@@ -110,15 +130,15 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
 
         {/*  plan id  */}
         <div className='space-y-2 '>
-          <Label htmlFor={type}>Amount (UGX)</Label>
-          <div className='flex gap-3 items-center'>
+          <Label htmlFor={type}>Plan</Label>
+          <div className='flex gap-3 items-center   '>
             {plans?.data.plans.map((plan: any) => (
               <input
                 key={plan.id}
                 type='button'
                 value={plan.duration}
                 onClick={() => setUserPlan({ ...userPlan, endDate: plan.duration })}
-                className='px-4 py-1 bg-gray-600 rounded cursor-pointer'
+                className={` px-8 py-2 rounded cursor-pointer transition bg-gray-600 w-full ${userPlan.endDate === plan.duration && 'bg-violet-500 '}`}
               />
             ))}
           </div>
@@ -127,7 +147,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
         <Button
           onClick={handlePurchasePlan}
           disabled={!userPlan?.amount || Number(userPlan?.amount) <= 0}
-          className='w-full text-base font-semibold'
+          className='w-full text-base font-semibold py-6'
           variant={isDeposit ? 'default' : 'destructive'}
         >
           {isPending ? <Spinner /> : isDeposit ? '💰 Deposit Now' : '💸 Withdraw Now'}
