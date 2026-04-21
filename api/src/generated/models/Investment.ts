@@ -50,6 +50,7 @@ export type InvestmentMinAggregateOutputType = {
   expectedProfit: number | null
   startDate: Date | null
   endDate: Date | null
+  txHash: string | null
   status: $Enums.InvestmentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -63,6 +64,7 @@ export type InvestmentMaxAggregateOutputType = {
   expectedProfit: number | null
   startDate: Date | null
   endDate: Date | null
+  txHash: string | null
   status: $Enums.InvestmentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -76,6 +78,7 @@ export type InvestmentCountAggregateOutputType = {
   expectedProfit: number
   startDate: number
   endDate: number
+  txHash: number
   status: number
   createdAt: number
   updatedAt: number
@@ -107,6 +110,7 @@ export type InvestmentMinAggregateInputType = {
   expectedProfit?: true
   startDate?: true
   endDate?: true
+  txHash?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -120,6 +124,7 @@ export type InvestmentMaxAggregateInputType = {
   expectedProfit?: true
   startDate?: true
   endDate?: true
+  txHash?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -133,6 +138,7 @@ export type InvestmentCountAggregateInputType = {
   expectedProfit?: true
   startDate?: true
   endDate?: true
+  txHash?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -233,6 +239,7 @@ export type InvestmentGroupByOutputType = {
   expectedProfit: number | null
   startDate: Date
   endDate: Date | null
+  txHash: string | null
   status: $Enums.InvestmentStatus
   createdAt: Date
   updatedAt: Date
@@ -269,6 +276,7 @@ export type InvestmentWhereInput = {
   expectedProfit?: Prisma.FloatNullableFilter<"Investment"> | number | null
   startDate?: Prisma.DateTimeFilter<"Investment"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null
+  txHash?: Prisma.StringNullableFilter<"Investment"> | string | null
   status?: Prisma.EnumInvestmentStatusFilter<"Investment"> | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFilter<"Investment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Investment"> | Date | string
@@ -284,6 +292,7 @@ export type InvestmentOrderByWithRelationInput = {
   expectedProfit?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  txHash?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -302,6 +311,7 @@ export type InvestmentWhereUniqueInput = Prisma.AtLeast<{
   expectedProfit?: Prisma.FloatNullableFilter<"Investment"> | number | null
   startDate?: Prisma.DateTimeFilter<"Investment"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null
+  txHash?: Prisma.StringNullableFilter<"Investment"> | string | null
   status?: Prisma.EnumInvestmentStatusFilter<"Investment"> | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFilter<"Investment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Investment"> | Date | string
@@ -317,6 +327,7 @@ export type InvestmentOrderByWithAggregationInput = {
   expectedProfit?: Prisma.SortOrderInput | Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  txHash?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -338,6 +349,7 @@ export type InvestmentScalarWhereWithAggregatesInput = {
   expectedProfit?: Prisma.FloatNullableWithAggregatesFilter<"Investment"> | number | null
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Investment"> | Date | string
   endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Investment"> | Date | string | null
+  txHash?: Prisma.StringNullableWithAggregatesFilter<"Investment"> | string | null
   status?: Prisma.EnumInvestmentStatusWithAggregatesFilter<"Investment"> | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Investment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Investment"> | Date | string
@@ -348,6 +360,7 @@ export type InvestmentCreateInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -363,6 +376,7 @@ export type InvestmentUncheckedCreateInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -373,6 +387,7 @@ export type InvestmentUpdateInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -388,6 +403,7 @@ export type InvestmentUncheckedUpdateInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -401,6 +417,7 @@ export type InvestmentCreateManyInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -411,6 +428,7 @@ export type InvestmentUpdateManyMutationInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -424,6 +442,7 @@ export type InvestmentUncheckedUpdateManyInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -447,6 +466,7 @@ export type InvestmentCountOrderByAggregateInput = {
   expectedProfit?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
+  txHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -468,6 +488,7 @@ export type InvestmentMaxOrderByAggregateInput = {
   expectedProfit?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
+  txHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -481,6 +502,7 @@ export type InvestmentMinOrderByAggregateInput = {
   expectedProfit?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
   endDate?: Prisma.SortOrder
+  txHash?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -607,6 +629,7 @@ export type InvestmentCreateWithoutUserInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -620,6 +643,7 @@ export type InvestmentUncheckedCreateWithoutUserInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -662,6 +686,7 @@ export type InvestmentScalarWhereInput = {
   expectedProfit?: Prisma.FloatNullableFilter<"Investment"> | number | null
   startDate?: Prisma.DateTimeFilter<"Investment"> | Date | string
   endDate?: Prisma.DateTimeNullableFilter<"Investment"> | Date | string | null
+  txHash?: Prisma.StringNullableFilter<"Investment"> | string | null
   status?: Prisma.EnumInvestmentStatusFilter<"Investment"> | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFilter<"Investment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Investment"> | Date | string
@@ -672,6 +697,7 @@ export type InvestmentCreateWithoutPlanInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -685,6 +711,7 @@ export type InvestmentUncheckedCreateWithoutPlanInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -723,6 +750,7 @@ export type InvestmentCreateManyUserInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -733,6 +761,7 @@ export type InvestmentUpdateWithoutUserInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -746,6 +775,7 @@ export type InvestmentUncheckedUpdateWithoutUserInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -758,6 +788,7 @@ export type InvestmentUncheckedUpdateManyWithoutUserInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -770,6 +801,7 @@ export type InvestmentCreateManyPlanInput = {
   expectedProfit?: number | null
   startDate?: Date | string
   endDate?: Date | string | null
+  txHash?: string | null
   status?: $Enums.InvestmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -780,6 +812,7 @@ export type InvestmentUpdateWithoutPlanInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -793,6 +826,7 @@ export type InvestmentUncheckedUpdateWithoutPlanInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -805,6 +839,7 @@ export type InvestmentUncheckedUpdateManyWithoutPlanInput = {
   expectedProfit?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  txHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumInvestmentStatusFieldUpdateOperationsInput | $Enums.InvestmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -820,6 +855,7 @@ export type InvestmentSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   expectedProfit?: boolean
   startDate?: boolean
   endDate?: boolean
+  txHash?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -835,6 +871,7 @@ export type InvestmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   expectedProfit?: boolean
   startDate?: boolean
   endDate?: boolean
+  txHash?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -850,6 +887,7 @@ export type InvestmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   expectedProfit?: boolean
   startDate?: boolean
   endDate?: boolean
+  txHash?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -865,12 +903,13 @@ export type InvestmentSelectScalar = {
   expectedProfit?: boolean
   startDate?: boolean
   endDate?: boolean
+  txHash?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type InvestmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "planId" | "amount" | "expectedProfit" | "startDate" | "endDate" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["investment"]>
+export type InvestmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "planId" | "amount" | "expectedProfit" | "startDate" | "endDate" | "txHash" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["investment"]>
 export type InvestmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   plan?: boolean | Prisma.InvestmentPlanDefaultArgs<ExtArgs>
@@ -898,6 +937,7 @@ export type $InvestmentPayload<ExtArgs extends runtime.Types.Extensions.Internal
     expectedProfit: number | null
     startDate: Date
     endDate: Date | null
+    txHash: string | null
     status: $Enums.InvestmentStatus
     createdAt: Date
     updatedAt: Date
@@ -1333,6 +1373,7 @@ export interface InvestmentFieldRefs {
   readonly expectedProfit: Prisma.FieldRef<"Investment", 'Float'>
   readonly startDate: Prisma.FieldRef<"Investment", 'DateTime'>
   readonly endDate: Prisma.FieldRef<"Investment", 'DateTime'>
+  readonly txHash: Prisma.FieldRef<"Investment", 'String'>
   readonly status: Prisma.FieldRef<"Investment", 'InvestmentStatus'>
   readonly createdAt: Prisma.FieldRef<"Investment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Investment", 'DateTime'>

@@ -22,10 +22,9 @@ export const createInvestment = async (req: Request, res: Response) => {
   try {
     // Logic to create an investment
     const userId = (req as any).user.id;
-    console.log('userId==>', userId);
 
     const tx = await createInvestmentService(req.body, userId);
-    console.log('Transaction==>', tx);
+    // console.log('Transaction==>', tx);
     return successResult(res, { tx }, 'Transaction successult!');
   } catch (error) {
     res.status(500).json({ message: 'Error creating investment', error });

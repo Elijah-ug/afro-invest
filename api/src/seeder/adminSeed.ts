@@ -3,12 +3,14 @@ import { prisma } from '../lib/prisma';
 export async function adminSeeder() {
   const date = new Date('2002-12-24T06:22:33.444Z');
   const hashedPwd = await bcrypt.hash('password', 10);
+  // "0xe4ab69c077896252fafbd49efd26b5d171a32410"
   const admins = [
+
     {
       firstname: 'Elicom',
       lastname: 'Elijah',
       email: 'elijah@gmail.com',
-      address: '0xcA148103AF13F34c290CcC22F7f426f2e3FD6B1D',
+      address: '0x6AbB846A7b82197ed1D4a807caF519fe360dD706',
       phone: '+256781234567',
       dob: date,
       nin: 'CM97027102XXXX',

@@ -864,6 +864,7 @@ export const InvestmentScalarFieldEnum = {
   expectedProfit: 'expectedProfit',
   startDate: 'startDate',
   endDate: 'endDate',
+  txHash: 'txHash',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

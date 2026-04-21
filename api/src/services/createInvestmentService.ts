@@ -7,7 +7,7 @@ export const createInvestmentService = async (data: any, userId: any) => {
   console.log('Data for transaction==>', data);
   const date = new Date();
   date.setDate(date.getDate() + data.endDate);
-  
+
   const plan: any = await prisma.investmentPlan.findUnique({
     where: {
       id: data.planId,
@@ -25,7 +25,7 @@ export const createInvestmentService = async (data: any, userId: any) => {
       planId: data.planId,
       amount: data.amount,
       expectedProfit,
-      //   startDate: data.startDate,
+      txHash: data.txHash,
       endDate: date,
     },
   });

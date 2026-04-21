@@ -5,8 +5,7 @@ import {
   updateInvestment,
   deleteInvestment,
 } from '../controllers/investmentsController';
-import { investment } from '../zod/investment';
-import { validateRequest } from '../middleware/validateRequest';
+
 import { jwtAuth } from '../middleware/jwtAuth';
 
 const investmentRoutes = express.Router();

@@ -55,6 +55,7 @@ model Investment {
   expectedProfit Float?
   startDate      DateTime         @default(now())
   endDate        DateTime?
+  txHash String?
   status         InvestmentStatus @default(ACTIVE)
   user           User             @relation(fields: [userId], references: [id])
   plan           InvestmentPlan   @relation(fields: [planId], references: [id])
