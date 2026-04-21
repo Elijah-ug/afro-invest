@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useInvestmentsQuery } from '@/store/features/investmentQuery';
 
 interface OverviewProps {
   user: any;
@@ -11,6 +12,22 @@ export const Overview = ({ user }: OverviewProps) => {
   const activeInvestments = user?.investments?.length || 0;
   const nextPayout = 'Jul 15, 2024';
 
+  const { data } = useInvestmentsQuery(user.id);
+  if (!data) {
+    return null;
+  }
+  let tt;
+  let profit;
+  const totals = data?.data.investments.reduce((acc: any, val: any) => {
+     acc.amount = val.amount + acc
+     acc.expectedProfit = val.expectedProfit
+     return acc
+  }, {
+    expectedProfit=0
+    amount = 0
+  });
+  console.log('totalstotals==>', tt);
+
   return (
     <div className='space-y-6'>
       <h1 className='text-3xl font-bold'>Dashboard Overview</h1>
@@ -21,7 +38,7 @@ export const Overview = ({ user }: OverviewProps) => {
             <span className='text-xl'>💰</span>
           </CardHeader>
           <CardContent>
-            <div className='text-2xl font-bold'>${portfolioValue.toFixed(2)}</div>
+            <div className='text-2xl font-bold'>${totals}</div>
             <p className='text-xs text-muted-foreground'>+2.4% from last month</p>
           </CardContent>
         </Card>
