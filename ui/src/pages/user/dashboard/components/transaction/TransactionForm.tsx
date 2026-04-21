@@ -142,7 +142,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
                   onClick={() => setUserPlan({ ...userPlan, endDate: plan.duration })}
                   className={` px-8 py-4 rounded cursor-pointer transition bg-green-600 w-full ${userPlan.endDate === plan.duration && 'bg-violet-500 '}`}
                 />
-                <span className='text-center'>{plan.name}</span>
+                <span className='text-center text-xs sm:text-sm'>{plan.name}</span>
                 <div className='absolute top-0 right-0'>
                   {plan.duration === 90 ? (
                     <Star
