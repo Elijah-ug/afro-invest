@@ -1,4 +1,4 @@
-export const afroBlocksAbi = [
+export const standardERC20Abi = [
   {
     name: 'transfer',
     type: 'function',
@@ -9,4 +9,4 @@ export const afroBlocksAbi = [
     ],
     outputs: [{ type: 'bool' }],
   },
-]
+];

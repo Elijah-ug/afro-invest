@@ -4,9 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { CheckCircle, TrendingUp, Shield, Star, DollarSign, Clock, Target, Award } from 'lucide-react';
 import { Benefits } from './investmentplans/Benefits';
 import { Link } from 'react-router-dom';
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 export const InvestmentPlans = () => {
-  
+  const { data } = useLoggedinUserQuery();
   const plans = [
     {
       id: 1,
