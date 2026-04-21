@@ -19,24 +19,34 @@ import { Profile } from './components/Profile';
 export const Dashboard = () => {
   const { data, isLoading } = useLoggedinUserQuery();
   const user = data?.data?.user;
-
+  console.log('User==>', user);
   const [activeTab, setActiveTab] = useState('overview');
-  const [sheetOpen, setSheetOpen] = useState(false);   // ← New state
+  const [sheetOpen, setSheetOpen] = useState(false); // ← New state
 
   if (isLoading) return <div className='flex items-center justify-center h-screen'>Loading...</div>;
-  if (!user) return <div className='flex items-center justify-center h-screen'>User not found</div>;
+  if (data)
+    return <div className='flex items-center justify-center h-screen text-2xl'>Oops! This Model Is Under Maintenance</div>;
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'overview': return <Overview user={user} />;
-      case 'portfolio': return <Portfolio user={user} />;
-      case 'transactions': return <Transactions />;
-      case 'investments': return <Investments user={user} />;
-      case 'analytics': return <Charts />;
-      case 'notifications': return <Notifications />;
-      case 'profile': return <Profile user={user} />;
-      case 'support': return <Support />;
-      default: return <Overview user={user} />;
+      case 'overview':
+        return <Overview user={user} />;
+      case 'portfolio':
+        return <Portfolio user={user} />;
+      case 'transactions':
+        return <Transactions />;
+      case 'investments':
+        return <Investments user={user} />;
+      case 'analytics':
+        return <Charts />;
+      case 'notifications':
+        return <Notifications />;
+      case 'profile':
+        return <Profile user={user} />;
+      case 'support':
+        return <Support />;
+      default:
+        return <Overview user={user} />;
     }
   };
 
@@ -44,10 +54,7 @@ export const Dashboard = () => {
     <div className='min-h-[calc(100vh-4rem)] flex flex-col lg:flex-row'>
       {/* Desktop Sidebar */}
       <aside className='hidden lg:block w-80 p-4'>
-        <Sidebar 
-          activeTab={activeTab} 
-          setActiveTab={setActiveTab} 
-        />
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       </aside>
 
       {/* Main Content */}
@@ -63,10 +70,10 @@ export const Dashboard = () => {
             </SheetTrigger>
 
             <SheetContent side='left' className='h-full w-[85vw] max-w-sm p-0'>
-              <Sidebar 
-                activeTab={activeTab} 
+              <Sidebar
+                activeTab={activeTab}
                 setActiveTab={setActiveTab}
-                onClose={() => setSheetOpen(false)}   // ← Pass close function
+                onClose={() => setSheetOpen(false)} // ← Pass close function
               />
             </SheetContent>
           </Sheet>
