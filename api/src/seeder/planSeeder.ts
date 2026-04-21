@@ -35,12 +35,7 @@ export async function plansSeeder() {
     await prisma.investmentPlan.upsert({
       where: { name: plan.name },
       update: {
-        description: plan.description,
-        minAmount: plan.minAmount,
-        maxAmount: plan.maxAmount,
-        returnRate: plan.returnRate,
-        duration: plan.duration,
-        riskLevel: plan.riskLevel,
+        ...plan,
       },
       create: plan,
     });

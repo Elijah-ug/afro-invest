@@ -34,23 +34,20 @@ export async function adminSeeder() {
         OR: [{ email: admin.email }, { address: admin.address }, { phone: admin.phone }, { nin: admin.nin }],
       },
     });
-    if (existing) {
-      await prisma.user.update({
-        where: { id: existing.id },
-        data: {
-          firstname: admin.firstname,
-          lastname: admin.lastname,
-          address: admin.address,
-          phone: admin.phone,
-          dob: admin.dob,
-          nin: admin.nin,
-          role: admin.role,
-          password: admin.password,
-        },
-      });
-    } else {
-      await prisma.user.create({ data: admin });
-    }
+    await prisma.user.upsert({
+      where: { email: admin.email },
+      update: {
+        firstname: admin.firstname,
+        lastname: admin.lastname,
+        // address: admin.address,
+        // phone: admin.phone,
+        dob: admin.dob,
+        // nin: admin.nin,
+        role: admin.role,
+        password: admin.password,
+      },
+      create: admin,
+    });
   }
 }
 adminSeeder()
