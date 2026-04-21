@@ -7,7 +7,7 @@ interface OverviewProps {
 
 export const Overview = ({ user }: OverviewProps) => {
   // Mock data for now, in real app calculate from user data
-  const portfolioValue = 1240.5;
+  // const portfolioValue = 1240.5;
   const monthlyReturns = 14.2;
   const activeInvestments = user?.investments?.length || 0;
   const nextPayout = 'Jul 15, 2024';
@@ -17,15 +17,18 @@ export const Overview = ({ user }: OverviewProps) => {
     return null;
   }
   let tt;
-  let profit;
-  const totals = data?.data.investments.reduce((acc: any, val: any) => {
-     acc.amount = val.amount + acc
-     acc.expectedProfit = val.expectedProfit
-     return acc
-  }, {
-    expectedProfit=0
-    amount = 0
-  });
+  // let profit;
+  const totals = data?.data.investments.reduce(
+    (acc: any, val: any) => {
+      acc.amount = val.amount + acc;
+      acc.expectedProfit = val.expectedProfit;
+      return acc;
+    },
+    {
+      expectedProfit: 0,
+      amount: 0
+    },
+  );
   console.log('totalstotals==>', tt);
 
   return (

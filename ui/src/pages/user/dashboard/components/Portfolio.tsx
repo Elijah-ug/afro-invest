@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useInvestmentsQuery } from '@/store/features/investmentQuery';
-import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 interface PortfolioProps {
   user: any;
