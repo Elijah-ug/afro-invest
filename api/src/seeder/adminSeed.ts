@@ -4,7 +4,6 @@ export async function adminSeeder() {
   const date = new Date('2002-12-24T06:22:33.444Z');
   const hashedPwd = await bcrypt.hash('password', 10);
   const admins = [
-
     {
       firstname: 'Elicom',
       lastname: 'Elijah',
@@ -30,20 +29,28 @@ export async function adminSeeder() {
   ];
 
   for (const admin of admins) {
-    await prisma.user.upsert({
-      where: { email: admin.email },
-      update: {
-        firstname: admin.firstname,
-        lastname: admin.lastname,
-        address: admin.address,
-        phone: admin.phone,
-        dob: admin.dob,
-        nin: admin.nin,
-        role: admin.role,
-        password: admin.password,
+    const existing = await prisma.user.findFirst({
+      where: {
+        OR: [{ email: admin.email }, { address: admin.address }, { phone: admin.phone }, { nin: admin.nin }],
       },
-      create: admin,
     });
+    if (existing) {
+      await prisma.user.update({
+        where: { id: existing.id },
+        data: {
+          firstname: admin.firstname,
+          lastname: admin.lastname,
+          address: admin.address,
+          phone: admin.phone,
+          dob: admin.dob,
+          nin: admin.nin,
+          role: admin.role,
+          password: admin.password,
+        },
+      });
+    } else {
+      await prisma.user.create({ data: admin });
+    }
   }
 }
 adminSeeder()
