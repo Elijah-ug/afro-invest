@@ -13,6 +13,7 @@ import { afroBlocksAddress } from '@/abi/ercTokenAddress';
 import { useDepositMutation } from '@/store/features/investmentQuery';
 import { waitForTransactionReceipt } from 'viem/actions';
 import { standardERC20Abi } from '@/abi/baseSepolia';
+import { CircleArrowDown, Layers2, Star } from 'lucide-react';
 
 type TransactionFormProps = {
   type: 'deposit' | 'withdraw';
@@ -97,7 +98,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
       <CardContent className='space-y-5'>
         {/* amount */}
         <div className='space-y-2'>
-          <Label htmlFor={type}>Amount (UGX)</Label>
+          <Label htmlFor={type}>Amount (AFB)</Label>
           <Input
             id={type}
             type='number'
@@ -109,7 +110,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
         </div>
         {/*  plan id  */}
         <div className='space-y-2 '>
-          <Label htmlFor={type}>Amount (UGX)</Label>
+          <Label htmlFor={type}>Plan</Label>
           <select
             name='planId'
             id='planId'
@@ -130,16 +131,31 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
 
         {/*  plan id  */}
         <div className='space-y-2 '>
-          <Label htmlFor={type}>Plan</Label>
-          <div className='flex gap-3 items-center   '>
+          <Label htmlFor={type}>Select Plan (Days)</Label>
+          <div className='flex gap-3 items-center '>
             {plans?.data.plans.map((plan: any) => (
-              <input
-                key={plan.id}
-                type='button'
-                value={plan.duration}
-                onClick={() => setUserPlan({ ...userPlan, endDate: plan.duration })}
-                className={` px-8 py-2 rounded cursor-pointer transition bg-gray-600 w-full ${userPlan.endDate === plan.duration && 'bg-violet-500 '}`}
-              />
+              <div className='relative flex flex-col items-center w-full'>
+                <input
+                  key={plan.id}
+                  type='button'
+                  value={plan.duration}
+                  onClick={() => setUserPlan({ ...userPlan, endDate: plan.duration })}
+                  className={` px-8 py-4 rounded cursor-pointer transition bg-green-600 w-full ${userPlan.endDate === plan.duration && 'bg-violet-500 '}`}
+                />
+                <span className='text-center'>{plan.name}</span>
+                <div className='absolute top-0 right-0'>
+                  {plan.duration === 90 ? (
+                    <Star
+                      className={`w-4 h-4 ${userPlan.endDate === plan.duration ? 'text-amber-500' : 'text-amber-600'}`}
+                      size={18}
+                    />
+                  ) : plan.duration === 60 ? (
+                    <Layers2 size={18} className=' text-blue-800' />
+                  ) : (
+                    <CircleArrowDown size={18} className='text-stone-700' />
+                  )}
+                </div>
+              </div>
             ))}
           </div>
         </div>
