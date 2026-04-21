@@ -52,9 +52,10 @@ model Investment {
   userId         Int
   planId         Int
   amount         Float
-  expectedProfit Float
+  expectedProfit Float?
   startDate      DateTime         @default(now())
-  endDate        DateTime
+  endDate        DateTime?
+  txHash String?
   status         InvestmentStatus @default(ACTIVE)
   user           User             @relation(fields: [userId], references: [id])
   plan           InvestmentPlan   @relation(fields: [planId], references: [id])
@@ -63,24 +64,24 @@ model Investment {
 }
 
 model InvestmentPlan {
-  id           Int          @id @default(autoincrement())
-  name         String
-  description  String?
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  description String?
   // Amount limits
-  minAmount    Float
-  maxAmount    Float
+  minAmount   Float
+  maxAmount   Float?
   // Returns
-  returnRate   Float // e.g. 0.2 = 20%
-  durationDays Int // e.g. 30 days
-  payoutType   PayoutType
-  returnType   ReturnType
+  returnRate  Float // e.g. 0.2 = 20%
+  duration    Int // e.g. 30 days
+  payoutType  PayoutType   @default(MONTHLY)
+  returnType  ReturnType   @default(FIXED)
   // Control
-  isActive     Boolean      @default(true)
-  riskLevel    RiskLevel
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  isActive    Boolean      @default(true)
+  riskLevel   RiskLevel
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   // Relations
-  investments  Investment[]
+  investments Investment[]
 }
 
 enum AmbassadorStatus {

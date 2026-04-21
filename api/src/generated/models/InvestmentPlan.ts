@@ -31,7 +31,7 @@ export type InvestmentPlanAvgAggregateOutputType = {
   minAmount: number | null
   maxAmount: number | null
   returnRate: number | null
-  durationDays: number | null
+  duration: number | null
 }
 
 export type InvestmentPlanSumAggregateOutputType = {
@@ -39,7 +39,7 @@ export type InvestmentPlanSumAggregateOutputType = {
   minAmount: number | null
   maxAmount: number | null
   returnRate: number | null
-  durationDays: number | null
+  duration: number | null
 }
 
 export type InvestmentPlanMinAggregateOutputType = {
@@ -49,7 +49,7 @@ export type InvestmentPlanMinAggregateOutputType = {
   minAmount: number | null
   maxAmount: number | null
   returnRate: number | null
-  durationDays: number | null
+  duration: number | null
   payoutType: $Enums.PayoutType | null
   returnType: $Enums.ReturnType | null
   isActive: boolean | null
@@ -65,7 +65,7 @@ export type InvestmentPlanMaxAggregateOutputType = {
   minAmount: number | null
   maxAmount: number | null
   returnRate: number | null
-  durationDays: number | null
+  duration: number | null
   payoutType: $Enums.PayoutType | null
   returnType: $Enums.ReturnType | null
   isActive: boolean | null
@@ -81,7 +81,7 @@ export type InvestmentPlanCountAggregateOutputType = {
   minAmount: number
   maxAmount: number
   returnRate: number
-  durationDays: number
+  duration: number
   payoutType: number
   returnType: number
   isActive: number
@@ -97,7 +97,7 @@ export type InvestmentPlanAvgAggregateInputType = {
   minAmount?: true
   maxAmount?: true
   returnRate?: true
-  durationDays?: true
+  duration?: true
 }
 
 export type InvestmentPlanSumAggregateInputType = {
@@ -105,7 +105,7 @@ export type InvestmentPlanSumAggregateInputType = {
   minAmount?: true
   maxAmount?: true
   returnRate?: true
-  durationDays?: true
+  duration?: true
 }
 
 export type InvestmentPlanMinAggregateInputType = {
@@ -115,7 +115,7 @@ export type InvestmentPlanMinAggregateInputType = {
   minAmount?: true
   maxAmount?: true
   returnRate?: true
-  durationDays?: true
+  duration?: true
   payoutType?: true
   returnType?: true
   isActive?: true
@@ -131,7 +131,7 @@ export type InvestmentPlanMaxAggregateInputType = {
   minAmount?: true
   maxAmount?: true
   returnRate?: true
-  durationDays?: true
+  duration?: true
   payoutType?: true
   returnType?: true
   isActive?: true
@@ -147,7 +147,7 @@ export type InvestmentPlanCountAggregateInputType = {
   minAmount?: true
   maxAmount?: true
   returnRate?: true
-  durationDays?: true
+  duration?: true
   payoutType?: true
   returnType?: true
   isActive?: true
@@ -248,9 +248,9 @@ export type InvestmentPlanGroupByOutputType = {
   name: string
   description: string | null
   minAmount: number
-  maxAmount: number
+  maxAmount: number | null
   returnRate: number
-  durationDays: number
+  duration: number
   payoutType: $Enums.PayoutType
   returnType: $Enums.ReturnType
   isActive: boolean
@@ -287,9 +287,9 @@ export type InvestmentPlanWhereInput = {
   name?: Prisma.StringFilter<"InvestmentPlan"> | string
   description?: Prisma.StringNullableFilter<"InvestmentPlan"> | string | null
   minAmount?: Prisma.FloatFilter<"InvestmentPlan"> | number
-  maxAmount?: Prisma.FloatFilter<"InvestmentPlan"> | number
+  maxAmount?: Prisma.FloatNullableFilter<"InvestmentPlan"> | number | null
   returnRate?: Prisma.FloatFilter<"InvestmentPlan"> | number
-  durationDays?: Prisma.IntFilter<"InvestmentPlan"> | number
+  duration?: Prisma.IntFilter<"InvestmentPlan"> | number
   payoutType?: Prisma.EnumPayoutTypeFilter<"InvestmentPlan"> | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFilter<"InvestmentPlan"> | $Enums.ReturnType
   isActive?: Prisma.BoolFilter<"InvestmentPlan"> | boolean
@@ -304,9 +304,9 @@ export type InvestmentPlanOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   minAmount?: Prisma.SortOrder
-  maxAmount?: Prisma.SortOrder
+  maxAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   returnRate?: Prisma.SortOrder
-  durationDays?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   payoutType?: Prisma.SortOrder
   returnType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -318,15 +318,15 @@ export type InvestmentPlanOrderByWithRelationInput = {
 
 export type InvestmentPlanWhereUniqueInput = Prisma.AtLeast<{
   id?: number
+  name?: string
   AND?: Prisma.InvestmentPlanWhereInput | Prisma.InvestmentPlanWhereInput[]
   OR?: Prisma.InvestmentPlanWhereInput[]
   NOT?: Prisma.InvestmentPlanWhereInput | Prisma.InvestmentPlanWhereInput[]
-  name?: Prisma.StringFilter<"InvestmentPlan"> | string
   description?: Prisma.StringNullableFilter<"InvestmentPlan"> | string | null
   minAmount?: Prisma.FloatFilter<"InvestmentPlan"> | number
-  maxAmount?: Prisma.FloatFilter<"InvestmentPlan"> | number
+  maxAmount?: Prisma.FloatNullableFilter<"InvestmentPlan"> | number | null
   returnRate?: Prisma.FloatFilter<"InvestmentPlan"> | number
-  durationDays?: Prisma.IntFilter<"InvestmentPlan"> | number
+  duration?: Prisma.IntFilter<"InvestmentPlan"> | number
   payoutType?: Prisma.EnumPayoutTypeFilter<"InvestmentPlan"> | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFilter<"InvestmentPlan"> | $Enums.ReturnType
   isActive?: Prisma.BoolFilter<"InvestmentPlan"> | boolean
@@ -334,16 +334,16 @@ export type InvestmentPlanWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"InvestmentPlan"> | Date | string
   investments?: Prisma.InvestmentListRelationFilter
-}, "id">
+}, "id" | "name">
 
 export type InvestmentPlanOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   minAmount?: Prisma.SortOrder
-  maxAmount?: Prisma.SortOrder
+  maxAmount?: Prisma.SortOrderInput | Prisma.SortOrder
   returnRate?: Prisma.SortOrder
-  durationDays?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   payoutType?: Prisma.SortOrder
   returnType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -365,9 +365,9 @@ export type InvestmentPlanScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"InvestmentPlan"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"InvestmentPlan"> | string | null
   minAmount?: Prisma.FloatWithAggregatesFilter<"InvestmentPlan"> | number
-  maxAmount?: Prisma.FloatWithAggregatesFilter<"InvestmentPlan"> | number
+  maxAmount?: Prisma.FloatNullableWithAggregatesFilter<"InvestmentPlan"> | number | null
   returnRate?: Prisma.FloatWithAggregatesFilter<"InvestmentPlan"> | number
-  durationDays?: Prisma.IntWithAggregatesFilter<"InvestmentPlan"> | number
+  duration?: Prisma.IntWithAggregatesFilter<"InvestmentPlan"> | number
   payoutType?: Prisma.EnumPayoutTypeWithAggregatesFilter<"InvestmentPlan"> | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeWithAggregatesFilter<"InvestmentPlan"> | $Enums.ReturnType
   isActive?: Prisma.BoolWithAggregatesFilter<"InvestmentPlan"> | boolean
@@ -380,11 +380,11 @@ export type InvestmentPlanCreateInput = {
   name: string
   description?: string | null
   minAmount: number
-  maxAmount: number
+  maxAmount?: number | null
   returnRate: number
-  durationDays: number
-  payoutType: $Enums.PayoutType
-  returnType: $Enums.ReturnType
+  duration: number
+  payoutType?: $Enums.PayoutType
+  returnType?: $Enums.ReturnType
   isActive?: boolean
   riskLevel: $Enums.RiskLevel
   createdAt?: Date | string
@@ -397,11 +397,11 @@ export type InvestmentPlanUncheckedCreateInput = {
   name: string
   description?: string | null
   minAmount: number
-  maxAmount: number
+  maxAmount?: number | null
   returnRate: number
-  durationDays: number
-  payoutType: $Enums.PayoutType
-  returnType: $Enums.ReturnType
+  duration: number
+  payoutType?: $Enums.PayoutType
+  returnType?: $Enums.ReturnType
   isActive?: boolean
   riskLevel: $Enums.RiskLevel
   createdAt?: Date | string
@@ -413,9 +413,9 @@ export type InvestmentPlanUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   minAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  maxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   returnRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   payoutType?: Prisma.EnumPayoutTypeFieldUpdateOperationsInput | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFieldUpdateOperationsInput | $Enums.ReturnType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -430,9 +430,9 @@ export type InvestmentPlanUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   minAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  maxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   returnRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   payoutType?: Prisma.EnumPayoutTypeFieldUpdateOperationsInput | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFieldUpdateOperationsInput | $Enums.ReturnType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -447,11 +447,11 @@ export type InvestmentPlanCreateManyInput = {
   name: string
   description?: string | null
   minAmount: number
-  maxAmount: number
+  maxAmount?: number | null
   returnRate: number
-  durationDays: number
-  payoutType: $Enums.PayoutType
-  returnType: $Enums.ReturnType
+  duration: number
+  payoutType?: $Enums.PayoutType
+  returnType?: $Enums.ReturnType
   isActive?: boolean
   riskLevel: $Enums.RiskLevel
   createdAt?: Date | string
@@ -462,9 +462,9 @@ export type InvestmentPlanUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   minAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  maxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   returnRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   payoutType?: Prisma.EnumPayoutTypeFieldUpdateOperationsInput | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFieldUpdateOperationsInput | $Enums.ReturnType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -478,9 +478,9 @@ export type InvestmentPlanUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   minAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  maxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   returnRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   payoutType?: Prisma.EnumPayoutTypeFieldUpdateOperationsInput | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFieldUpdateOperationsInput | $Enums.ReturnType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -501,7 +501,7 @@ export type InvestmentPlanCountOrderByAggregateInput = {
   minAmount?: Prisma.SortOrder
   maxAmount?: Prisma.SortOrder
   returnRate?: Prisma.SortOrder
-  durationDays?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   payoutType?: Prisma.SortOrder
   returnType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -515,7 +515,7 @@ export type InvestmentPlanAvgOrderByAggregateInput = {
   minAmount?: Prisma.SortOrder
   maxAmount?: Prisma.SortOrder
   returnRate?: Prisma.SortOrder
-  durationDays?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
 }
 
 export type InvestmentPlanMaxOrderByAggregateInput = {
@@ -525,7 +525,7 @@ export type InvestmentPlanMaxOrderByAggregateInput = {
   minAmount?: Prisma.SortOrder
   maxAmount?: Prisma.SortOrder
   returnRate?: Prisma.SortOrder
-  durationDays?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   payoutType?: Prisma.SortOrder
   returnType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -541,7 +541,7 @@ export type InvestmentPlanMinOrderByAggregateInput = {
   minAmount?: Prisma.SortOrder
   maxAmount?: Prisma.SortOrder
   returnRate?: Prisma.SortOrder
-  durationDays?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
   payoutType?: Prisma.SortOrder
   returnType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -555,7 +555,7 @@ export type InvestmentPlanSumOrderByAggregateInput = {
   minAmount?: Prisma.SortOrder
   maxAmount?: Prisma.SortOrder
   returnRate?: Prisma.SortOrder
-  durationDays?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
 }
 
 export type InvestmentPlanCreateNestedOneWithoutInvestmentsInput = {
@@ -592,11 +592,11 @@ export type InvestmentPlanCreateWithoutInvestmentsInput = {
   name: string
   description?: string | null
   minAmount: number
-  maxAmount: number
+  maxAmount?: number | null
   returnRate: number
-  durationDays: number
-  payoutType: $Enums.PayoutType
-  returnType: $Enums.ReturnType
+  duration: number
+  payoutType?: $Enums.PayoutType
+  returnType?: $Enums.ReturnType
   isActive?: boolean
   riskLevel: $Enums.RiskLevel
   createdAt?: Date | string
@@ -608,11 +608,11 @@ export type InvestmentPlanUncheckedCreateWithoutInvestmentsInput = {
   name: string
   description?: string | null
   minAmount: number
-  maxAmount: number
+  maxAmount?: number | null
   returnRate: number
-  durationDays: number
-  payoutType: $Enums.PayoutType
-  returnType: $Enums.ReturnType
+  duration: number
+  payoutType?: $Enums.PayoutType
+  returnType?: $Enums.ReturnType
   isActive?: boolean
   riskLevel: $Enums.RiskLevel
   createdAt?: Date | string
@@ -639,9 +639,9 @@ export type InvestmentPlanUpdateWithoutInvestmentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   minAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  maxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   returnRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   payoutType?: Prisma.EnumPayoutTypeFieldUpdateOperationsInput | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFieldUpdateOperationsInput | $Enums.ReturnType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -655,9 +655,9 @@ export type InvestmentPlanUncheckedUpdateWithoutInvestmentsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   minAmount?: Prisma.FloatFieldUpdateOperationsInput | number
-  maxAmount?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAmount?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   returnRate?: Prisma.FloatFieldUpdateOperationsInput | number
-  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
   payoutType?: Prisma.EnumPayoutTypeFieldUpdateOperationsInput | $Enums.PayoutType
   returnType?: Prisma.EnumReturnTypeFieldUpdateOperationsInput | $Enums.ReturnType
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -704,7 +704,7 @@ export type InvestmentPlanSelect<ExtArgs extends runtime.Types.Extensions.Intern
   minAmount?: boolean
   maxAmount?: boolean
   returnRate?: boolean
-  durationDays?: boolean
+  duration?: boolean
   payoutType?: boolean
   returnType?: boolean
   isActive?: boolean
@@ -722,7 +722,7 @@ export type InvestmentPlanSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   minAmount?: boolean
   maxAmount?: boolean
   returnRate?: boolean
-  durationDays?: boolean
+  duration?: boolean
   payoutType?: boolean
   returnType?: boolean
   isActive?: boolean
@@ -738,7 +738,7 @@ export type InvestmentPlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   minAmount?: boolean
   maxAmount?: boolean
   returnRate?: boolean
-  durationDays?: boolean
+  duration?: boolean
   payoutType?: boolean
   returnType?: boolean
   isActive?: boolean
@@ -754,7 +754,7 @@ export type InvestmentPlanSelectScalar = {
   minAmount?: boolean
   maxAmount?: boolean
   returnRate?: boolean
-  durationDays?: boolean
+  duration?: boolean
   payoutType?: boolean
   returnType?: boolean
   isActive?: boolean
@@ -763,7 +763,7 @@ export type InvestmentPlanSelectScalar = {
   updatedAt?: boolean
 }
 
-export type InvestmentPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "minAmount" | "maxAmount" | "returnRate" | "durationDays" | "payoutType" | "returnType" | "isActive" | "riskLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["investmentPlan"]>
+export type InvestmentPlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "minAmount" | "maxAmount" | "returnRate" | "duration" | "payoutType" | "returnType" | "isActive" | "riskLevel" | "createdAt" | "updatedAt", ExtArgs["result"]["investmentPlan"]>
 export type InvestmentPlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   investments?: boolean | Prisma.InvestmentPlan$investmentsArgs<ExtArgs>
   _count?: boolean | Prisma.InvestmentPlanCountOutputTypeDefaultArgs<ExtArgs>
@@ -781,9 +781,9 @@ export type $InvestmentPlanPayload<ExtArgs extends runtime.Types.Extensions.Inte
     name: string
     description: string | null
     minAmount: number
-    maxAmount: number
+    maxAmount: number | null
     returnRate: number
-    durationDays: number
+    duration: number
     payoutType: $Enums.PayoutType
     returnType: $Enums.ReturnType
     isActive: boolean
@@ -1220,7 +1220,7 @@ export interface InvestmentPlanFieldRefs {
   readonly minAmount: Prisma.FieldRef<"InvestmentPlan", 'Float'>
   readonly maxAmount: Prisma.FieldRef<"InvestmentPlan", 'Float'>
   readonly returnRate: Prisma.FieldRef<"InvestmentPlan", 'Float'>
-  readonly durationDays: Prisma.FieldRef<"InvestmentPlan", 'Int'>
+  readonly duration: Prisma.FieldRef<"InvestmentPlan", 'Int'>
   readonly payoutType: Prisma.FieldRef<"InvestmentPlan", 'PayoutType'>
   readonly returnType: Prisma.FieldRef<"InvestmentPlan", 'ReturnType'>
   readonly isActive: Prisma.FieldRef<"InvestmentPlan", 'Boolean'>

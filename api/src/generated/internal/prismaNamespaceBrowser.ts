@@ -121,6 +121,7 @@ export const InvestmentScalarFieldEnum = {
   expectedProfit: 'expectedProfit',
   startDate: 'startDate',
   endDate: 'endDate',
+  txHash: 'txHash',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -136,7 +137,7 @@ export const InvestmentPlanScalarFieldEnum = {
   minAmount: 'minAmount',
   maxAmount: 'maxAmount',
   returnRate: 'returnRate',
-  durationDays: 'durationDays',
+  duration: 'duration',
   payoutType: 'payoutType',
   returnType: 'returnType',
   isActive: 'isActive',

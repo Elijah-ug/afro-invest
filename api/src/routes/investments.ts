@@ -6,10 +6,12 @@ import {
   deleteInvestment,
 } from '../controllers/investmentsController';
 
+import { jwtAuth } from '../middleware/jwtAuth';
+
 const investmentRoutes = express.Router();
 
-investmentRoutes.get('/', getInvestments);
-investmentRoutes.post('/', createInvestment);
+investmentRoutes.get('/user/:id', jwtAuth, getInvestments);
+investmentRoutes.post('/', jwtAuth, createInvestment);
 investmentRoutes.put('/:id', updateInvestment);
 investmentRoutes.delete('/:id', deleteInvestment);
 
