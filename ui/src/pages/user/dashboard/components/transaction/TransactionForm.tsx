@@ -36,7 +36,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
   const { data } = useReceiverAddrQuery();
   const [deposit, { error }] = useDepositMutation();
   const receiver = data?.data.receiver.address;
-// const receiver = "0x3efcAA8E8AF17085Afd84d56944eBacD1FDC0688"
+  // const receiver = "0x3efcAA8E8AF17085Afd84d56944eBacD1FDC0688"
   console.log('deposit error==>', error);
 
   const handlePurchasePlan = async () => {

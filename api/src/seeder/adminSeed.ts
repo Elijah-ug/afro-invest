@@ -61,5 +61,5 @@ adminSeeder()
   })
   .finally(async () => {
     await prisma.$disconnect();
-    process.exit(1);
+    process.exit(0);
   });
