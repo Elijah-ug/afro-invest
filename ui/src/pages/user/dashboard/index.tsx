@@ -24,8 +24,10 @@ export const Dashboard = () => {
   const [sheetOpen, setSheetOpen] = useState(false); // ← New state
 
   if (isLoading) return <div className='flex items-center justify-center h-screen'>Loading...</div>;
-  if (data)
-    return <div className='flex items-center justify-center h-screen text-2xl'>Oops! This Model Is Under Maintenance</div>;
+  if (!user)
+    return (
+      <div className='flex items-center justify-center h-screen text-2xl'>Oops! This Model Is Under Maintenance</div>
+    );
 
   const renderContent = () => {
     switch (activeTab) {

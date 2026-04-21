@@ -8,11 +8,15 @@ import { useLoggedinUserQuery } from '@/store/features/userQuery';
 export const MainLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data } = useLoggedinUserQuery();
+  const isAdmin = data?.data.user.email === 'testnext@gmail.com';
+  // console.log('Data isAdmin ==>', isAdmin);
+
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
     { to: '/investment-plans', label: 'Investment Plans' },
     { to: '/profit-calculator', label: 'Profit Calculator' },
+     { to: '/admin', label: 'Admin Dashboard' },
     data ? { to: '/dashboard', label: 'Dashboard' } : { to: '/login', label: 'Login' },
   ];
 

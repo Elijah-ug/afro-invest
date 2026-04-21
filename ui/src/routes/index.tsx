@@ -9,6 +9,7 @@ import { Login } from '@/pages/Login';
 import { Register } from '@/pages/Register';
 import { Dashboard } from '@/pages/user/dashboard';
 import { RequireAuth } from './ProtectedRoute';
+import { AdminDashboard } from '@/pages/admin/AdminDashboard';
 
 export const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ export const AppRoutes = () => {
         <Route path='/profit-calculator' element={<ProfitCalculator />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/admin' element={<AdminDashboard />} />
 
         {/* Dashboard Routes (Protected) */}
         <Route

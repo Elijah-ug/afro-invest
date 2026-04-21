@@ -16,7 +16,6 @@ export const Overview = ({ user }: OverviewProps) => {
   if (!data) {
     return null;
   }
-  let tt;
   // let profit;
   const totals = data?.data.investments.reduce(
     (acc: any, val: any) => {
@@ -29,7 +28,7 @@ export const Overview = ({ user }: OverviewProps) => {
       amount: 0
     },
   );
-  console.log('totalstotals==>', tt);
+  console.log('totalstotals==>',totals);
 
   return (
     <div className='space-y-6'>
@@ -41,7 +40,7 @@ export const Overview = ({ user }: OverviewProps) => {
             <span className='text-xl'>💰</span>
           </CardHeader>
           <CardContent>
-            <div className='text-2xl font-bold'>${totals}</div>
+            <div className='text-2xl font-bold'>${totals.expectedProfit}</div>
             <p className='text-xs text-muted-foreground'>+2.4% from last month</p>
           </CardContent>
         </Card>
