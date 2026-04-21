@@ -10,7 +10,7 @@ export async function adminSeeder() {
       firstname: 'Elicom',
       lastname: 'Elijah',
       email: 'elijah@gmail.com',
-      address: '0x6AbB846A7b82197ed1D4a807caF519fe360dD706',
+      address: '0x3efcAA8E8AF17085Afd84d56944eBacD1FDC0688',
       phone: '+256781234567',
       dob: date,
       nin: 'CM97027102XXXX',

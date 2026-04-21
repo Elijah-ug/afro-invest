@@ -9,11 +9,11 @@ import { useReceiverAddrQuery } from '@/store/features/receiverQuery';
 import { usePublicClient, useWriteContract } from 'wagmi';
 import { toast } from 'react-toastify';
 import { parseUnits } from 'viem';
-import { afroBlocksAddress } from '@/abi/ercTokenAddress';
 import { useDepositMutation } from '@/store/features/investmentQuery';
 import { waitForTransactionReceipt } from 'viem/actions';
 import { standardERC20Abi } from '@/abi/baseSepolia';
 import { CircleArrowDown, Layers2, Star } from 'lucide-react';
+import { baseMainnetTokenAddress } from '@/abi/ercTokenAddress';
 
 type TransactionFormProps = {
   type: 'deposit' | 'withdraw';
@@ -48,7 +48,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
       const parsedAmount = parseUnits(userPlan.amount.toString(), 18);
       console.log('parsedAmount=>', parsedAmount);
       const hash = await writeContractAsync({
-        address: afroBlocksAddress,
+        address: baseMainnetTokenAddress,
         abi: standardERC20Abi,
         functionName: 'transfer',
         args: [receiver, parsedAmount],

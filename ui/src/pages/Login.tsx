@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -9,6 +9,7 @@ import { useLoginMutation } from '@/store/features/userQuery';
 import { toast } from 'react-toastify';
 
 export const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -37,7 +38,8 @@ export const Login: React.FC = () => {
       const token = await res.data.result.token;
       console.log('token==>', token);
       localStorage.setItem('token', token);
-      return (window.location.href = '/dashboard');
+      // (window.location.href = '/dashboard');
+      return navigate('/dashboard');
     } catch (error) {
       // Handle login error
       console.error('Login failed:', error);

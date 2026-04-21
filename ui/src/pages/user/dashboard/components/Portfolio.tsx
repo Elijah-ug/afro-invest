@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useInvestmentsQuery } from '@/store/features/investmentQuery';
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 interface PortfolioProps {
   user: any;
@@ -14,6 +16,13 @@ export const Portfolio = ({ user }: PortfolioProps) => {
   ];
 
   const totalValue = holdings.reduce((sum: number, item: any) => sum + item.value, 0);
+  const { data } = useInvestmentsQuery(user.id);
+  if (!data) {
+    return null;
+  }
+  const totals = data?.data.investments.reduce((init:any, val:any) => val.amount + init, 0);
+  console.log('res==>', totals);
+  console.log('data here==>', data.data.investments);
 
   return (
     <div className='space-y-16'>
@@ -29,7 +38,7 @@ export const Portfolio = ({ user }: PortfolioProps) => {
         </Badge>
       </div>
 
-      <div className='grid gap-4 md:grid-cols-3'>
+      <div className=' gap-4 md:grid-cols-3 hidden'>
         <Card>
           <CardHeader>
             <CardTitle>Portfolio Value</CardTitle>
@@ -41,7 +50,7 @@ export const Portfolio = ({ user }: PortfolioProps) => {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Diversification</CardTitle>
+            <CardTitle>Earnings</CardTitle>
           </CardHeader>
           <CardContent>
             <div className='space-y-3'>
@@ -75,12 +84,12 @@ export const Portfolio = ({ user }: PortfolioProps) => {
               <div key={item.asset} className='rounded-3xl border border-slate-800 p-4 bg-slate-900/70'>
                 <div className='flex items-center justify-between gap-4'>
                   <div>
-                    <p className='font-semibold'>{item.asset}</p>
+                    <p className='font-semibold'>{}</p>
                     <p className='text-sm text-slate-400'>Value</p>
                   </div>
                   <Badge variant='secondary'>{item.allocation}%</Badge>
                 </div>
-                <p className='mt-4 text-2xl font-bold'>${item.value.toLocaleString()}</p>
+                <p className='mt-4 text-2xl font-bold'>${totals}</p>
               </div>
             ))}
           </div>
