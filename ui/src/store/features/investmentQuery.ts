@@ -15,6 +15,14 @@ export const investmentQuery = createApi({
   }),
   tagTypes: ['Investment'],
   endpoints: (builder) => ({
+    allInvestments: builder.query<any, void>({
+      query: () => ({
+        url: `/`,
+        method: 'GET',
+      }),
+      providesTags: ['Investment'],
+    }),
+
     investments: builder.query<any, void>({
       query: (userId) => ({
         url: `/user/${userId}`,
@@ -34,4 +42,4 @@ export const investmentQuery = createApi({
   }),
 });
 
-export const { useInvestmentsQuery, useDepositMutation } = investmentQuery;
+export const { useInvestmentsQuery, useDepositMutation, useAllInvestmentsQuery } = investmentQuery;
