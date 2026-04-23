@@ -63,8 +63,10 @@ export const loggedinUser = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).json({ message: '404 User Not Found' });
     }
-    // return res.status(200).json({ message: 'User fetched' });
-    return successResult(res, { user }, 'User retrieved successfully');
+    return res
+      .status(200)
+      .json({ message: 'The world is full of Underrating peoples careers and ->friendship + Business == Fragile' });
+    // return successResult(res, { user }, 'User retrieved successfully');
   } catch (error: any) {
     console.error('Error fetching logged-in user:', error);
     return unsuccessfulResult(res, { error }, 'Error fetching logged-in user');
