@@ -14,12 +14,21 @@ import { Charts } from './components/Charts';
 import { Notifications } from './components/Notifications';
 import { Support } from './components/Support';
 import { Profile } from './components/Profile';
+import { AdminOverview } from '@/pages/admin/AdminOverview';
+import { UserManagement } from '@/pages/admin/UserManagement';
+import { AllTransactions } from '@/pages/admin/AllTransactions';
+import { ManagePlans } from '@/pages/admin/ManagePlans';
+import { AdminAnalytics } from '@/pages/admin/AdminAnalytics';
+import { AdminNotifications } from '@/pages/admin/AdminNotifications';
+import { SupportTickets } from '@/pages/admin/SupportTickets';
+import { WithdrawRequest } from '@/pages/admin/WithdrawRequest';
 // ... other imports
 
 export const Dashboard = () => {
   const { data, isLoading } = useLoggedinUserQuery();
   const user = data?.data?.user;
-  console.log('User==>', user);
+  const isAdmin = user.role === 'admin';
+  console.log('isAdmin==>', isAdmin);
   const [activeTab, setActiveTab] = useState('overview');
   const [sheetOpen, setSheetOpen] = useState(false); // ← New state
 
@@ -30,25 +39,53 @@ export const Dashboard = () => {
     );
 
   const renderContent = () => {
-    switch (activeTab) {
-      case 'overview':
-        return <Overview user={user} />;
-      case 'portfolio':
-        return <Portfolio user={user} />;
-      case 'transactions':
-        return <Transactions />;
-      case 'investments':
-        return <Investments user={user} />;
-      case 'analytics':
-        return <Charts />;
-      case 'notifications':
-        return <Notifications />;
-      case 'profile':
-        return <Profile user={user} />;
-      case 'support':
-        return <Support />;
-      default:
-        return <Overview user={user} />;
+    if (isAdmin) {
+      switch (activeTab) {
+        case 'overview':
+          return <AdminOverview />;
+
+        case 'users':
+          return <UserManagement />;
+
+        case 'withdrawrequest':
+          return <WithdrawRequest />;
+
+        case 'transactions':
+          return <AllTransactions />;
+
+        case 'plans':
+          return <ManagePlans />;
+
+        case 'analytics':
+          return <AdminAnalytics />;
+
+        case 'notifications':
+          return <AdminNotifications />;
+
+        case 'support':
+          return <SupportTickets />;
+      }
+    } else {
+      switch (activeTab) {
+        case 'overview':
+          return <Overview user={user} />;
+        case 'portfolio':
+          return <Portfolio user={user} />;
+        case 'transactions':
+          return <Transactions />;
+        case 'investments':
+          return <Investments user={user} />;
+        case 'analytics':
+          return <Charts />;
+        case 'notifications':
+          return <Notifications />;
+        case 'profile':
+          return <Profile user={user} />;
+        case 'support':
+          return <Support />;
+        default:
+          return <Overview user={user} />;
+      }
     }
   };
 
@@ -56,7 +93,7 @@ export const Dashboard = () => {
     <div className='min-h-[calc(100vh-4rem)] flex flex-col lg:flex-row'>
       {/* Desktop Sidebar */}
       <aside className='hidden lg:block w-80 p-4'>
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} isAdmin={isAdmin} />
       </aside>
 
       {/* Main Content */}
@@ -75,6 +112,7 @@ export const Dashboard = () => {
               <Sidebar
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
+                isAdmin={isAdmin}
                 onClose={() => setSheetOpen(false)} // ← Pass close function
               />
             </SheetContent>

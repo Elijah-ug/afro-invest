@@ -7,6 +7,7 @@ import investmentRoutes from './routes/investments';
 import userRoutes from './routes/users';
 import { errorHandler } from './middleware/errorHandler';
 import investmentPlanRoutes from './routes/investmentPlan';
+import withdrawRoutes from './routes/withdraws';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,6 +31,7 @@ app.use(`${baseurl}/users`, userRoutes);
 app.use(`${baseurl}/admin`, adminRoutes);
 app.use(`${baseurl}/investments`, investmentRoutes);
 app.use(`${baseurl}/investment-plans`, investmentPlanRoutes);
+app.use(`${baseurl}/withdraws`, withdrawRoutes);
 
 // Global error handling
 app.use(errorHandler);

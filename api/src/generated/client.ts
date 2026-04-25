@@ -64,3 +64,13 @@ export type Investment = Prisma.InvestmentModel
  * 
  */
 export type InvestmentPlan = Prisma.InvestmentPlanModel
+/**
+ * Model WithdrawRequest
+ * 
+ */
+export type WithdrawRequest = Prisma.WithdrawRequestModel
+/**
+ * Model Withdraw
+ * 
+ */
+export type Withdraw = Prisma.WithdrawModel

@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 export const Transactions = () => {
   const { data: user } = useLoggedinUserQuery();
   const { data: investment } = useInvestmentsQuery(user?.data.user.id);
-  console.log('investment==>', investment);
+  // const invs: any = investment.data.investments.reduce((acc: any, val: any) => acc + val.amount, 0);
+  // console.log('investment==>', invs);
 
   return (
     <div className='space-y-8 max-w-xl mx-auto'>
@@ -26,11 +27,11 @@ export const Transactions = () => {
         </TabsList>
 
         <TabsContent value='deposit' className='mt-4'>
-          <TransactionForm type='deposit' />
+          <TransactionForm type='deposit'  />
         </TabsContent>
 
         <TabsContent value='withdraw' className='mt-4'>
-          <TransactionForm type='withdraw' />
+          <TransactionForm type='withdraw'  />
         </TabsContent>
       </Tabs>
 
@@ -47,7 +48,11 @@ export const Transactions = () => {
               <span>$ {investment.amount}</span>
               <div className='flex items-center gap-3'>
                 <span>View on base sepolia explorer</span>
-                <Link to={`https://sepolia.basescan.org/tx/${investment.txHash}`} target='_blank' className='text-blue-500 hover:underline'>
+                <Link
+                  to={`https://sepolia.basescan.org/tx/${investment.txHash}`}
+                  target='_blank'
+                  className='text-blue-500 hover:underline'
+                >
                   sepolia.basescan.org
                 </Link>
               </div>

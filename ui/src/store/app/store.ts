@@ -3,6 +3,7 @@ import { userSlice } from '../features/userQuery';
 import { receiverQuery } from '../features/receiverQuery';
 import { investmentQuery } from '../features/investmentQuery';
 import { investmentPlansQuery } from '../features/investmentPlansQuery';
+import { withdrawReq } from '../features/withdrawReq';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     [receiverQuery.reducerPath]: receiverQuery.reducer,
     [investmentQuery.reducerPath]: investmentQuery.reducer,
     [investmentPlansQuery.reducerPath]: investmentPlansQuery.reducer,
+    [withdrawReq.reducerPath]: withdrawReq.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -17,6 +19,7 @@ export const store = configureStore({
       receiverQuery.middleware,
       investmentQuery.middleware,
       investmentPlansQuery.middleware,
+      withdrawReq.middleware,
     ),
 });
 

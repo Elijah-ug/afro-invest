@@ -16,13 +16,13 @@ export const Sidebar = ({ activeTab, setActiveTab, onClose }: SidebarProps) => {
 
   const menuItems = [
     { id: 'overview', label: 'Overview', icon: <Gauge className='h-4 w-4' /> },
-    { id: 'portfolio', label: 'Portfolio', icon: <BarChart3 className='h-4 w-4' /> },
+    { id: 'users', label: 'Users', icon: <BarChart3 className='h-4 w-4' /> },
     { id: 'transactions', label: 'Transactions', icon: <Activity className='h-4 w-4' /> },
-    { id: 'investments', label: 'Investments', icon: <TrendingUp className='h-4 w-4' /> },
+    { id: 'plans', label: 'Plans', icon: <HelpCircle className='h-4 w-4' /> },
     { id: 'analytics', label: 'Analytics', icon: <ShieldCheck className='h-4 w-4' /> },
     { id: 'notifications', label: 'Notifications', icon: <Bell className='h-4 w-4' /> },
+    { id: 'support', label: 'Support Tickets', icon: <TrendingUp className='h-4 w-4' /> },
     { id: 'profile', label: 'Profile', icon: <User className='h-4 w-4' /> },
-    { id: 'support', label: 'Support', icon: <HelpCircle className='h-4 w-4' /> },
   ];
 
   const handleTabClick = (id: string) => {

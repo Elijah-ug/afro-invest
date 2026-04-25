@@ -9,9 +9,11 @@ import { Login } from '@/pages/Login';
 import { Register } from '@/pages/Register';
 import { Dashboard } from '@/pages/user/dashboard';
 import { RequireAuth } from './ProtectedRoute';
-import { AdminDashboard } from '@/pages/admin/AdminDashboard';
+import { useLoggedinUserQuery } from '@/store/features/userQuery';
 
 export const AppRoutes = () => {
+  const { data } = useLoggedinUserQuery();
+  const isAdmin = data?.data?.user.role === 'admin';
   return (
     <Routes>
       {/* Main Layout Routes */}
@@ -22,11 +24,12 @@ export const AppRoutes = () => {
         <Route path='/profit-calculator' element={<ProfitCalculator />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/admin' element={<AdminDashboard />} />
+        {/* <Route path='/admin' element={<AdminDashboard />} /> */}
 
         {/* Dashboard Routes (Protected) */}
+
         <Route
-          path='/dashboard'
+          path={isAdmin ? '/admin' : '/dashboard'}
           element={
             <RequireAuth>
               <DashboardLayout />
@@ -35,6 +38,17 @@ export const AppRoutes = () => {
         >
           <Route index element={<Dashboard />} />
         </Route>
+
+        {/* <Route
+          path='/admin'
+          element={
+            <RequireAuth>
+              <DashboardLayout />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<Dashboard />} />
+        </Route> */}
       </Route>
     </Routes>
   );

@@ -14,11 +14,17 @@ interface UserType {
   user: any;
 }
 export const UserDialogue = ({ user }: UserType) => {
+  const handleLogOut = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    localStorage.removeItem('token');
+    return (window.location.href = '/login');
+  };
   return (
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <div className='flex items-center gap-3 rounded-3xl bg-slate-900/80 hover:bg-white/5 p-3 transition-colors'>
+          <div className='flex items-center gap-3 rounded-3xl bg-slate-900/80 hover:bg-white/10 p-3 transition-colors'>
             <Avatar className='h-10 w-10 border border-slate-700'>
               <AvatarImage src='' />
               <AvatarFallback className='text-lg font-medium'>
@@ -37,7 +43,7 @@ export const UserDialogue = ({ user }: UserType) => {
         <DialogContent className='sm:max-w-sm'>
           <DialogHeader className='flex items-center justify-center '>
             <DialogTitle className='flex items-center justify-center p-2 rounded-full bg-white/10'>
-                <User/>
+              <User />
             </DialogTitle>
           </DialogHeader>
           {user && (
@@ -46,16 +52,17 @@ export const UserDialogue = ({ user }: UserType) => {
                 <span>{user.firstname}</span>
                 <span>{user.lastname}</span>
               </div>
-             
+
               <div className='text-center'>
                 <span>{user.email}</span>
               </div>
-             
             </div>
           )}
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant='outline'>Logout</Button>
+              <Button variant='outline' onClick={handleLogOut}>
+                Logout
+              </Button>
             </DialogClose>
             <Button variant='outline'>Edit Profile</Button>
           </DialogFooter>
