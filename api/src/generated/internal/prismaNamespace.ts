@@ -388,7 +388,9 @@ export const ModelName = {
   Ambassador: 'Ambassador',
   Admin: 'Admin',
   Investment: 'Investment',
-  InvestmentPlan: 'InvestmentPlan'
+  InvestmentPlan: 'InvestmentPlan',
+  WithdrawRequest: 'WithdrawRequest',
+  Withdraw: 'Withdraw'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "ambassador" | "admin" | "investment" | "investmentPlan"
+    modelProps: "user" | "ambassador" | "admin" | "investment" | "investmentPlan" | "withdrawRequest" | "withdraw"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -778,6 +780,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WithdrawRequest: {
+      payload: Prisma.$WithdrawRequestPayload<ExtArgs>
+      fields: Prisma.WithdrawRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WithdrawRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WithdrawRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.WithdrawRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WithdrawRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>
+        }
+        findMany: {
+          args: Prisma.WithdrawRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>[]
+        }
+        create: {
+          args: Prisma.WithdrawRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>
+        }
+        createMany: {
+          args: Prisma.WithdrawRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WithdrawRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.WithdrawRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>
+        }
+        update: {
+          args: Prisma.WithdrawRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.WithdrawRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WithdrawRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WithdrawRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.WithdrawRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.WithdrawRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWithdrawRequest>
+        }
+        groupBy: {
+          args: Prisma.WithdrawRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WithdrawRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WithdrawRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WithdrawRequestCountAggregateOutputType> | number
+        }
+      }
+    }
+    Withdraw: {
+      payload: Prisma.$WithdrawPayload<ExtArgs>
+      fields: Prisma.WithdrawFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WithdrawFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WithdrawFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>
+        }
+        findFirst: {
+          args: Prisma.WithdrawFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WithdrawFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>
+        }
+        findMany: {
+          args: Prisma.WithdrawFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>[]
+        }
+        create: {
+          args: Prisma.WithdrawCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>
+        }
+        createMany: {
+          args: Prisma.WithdrawCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WithdrawCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>[]
+        }
+        delete: {
+          args: Prisma.WithdrawDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>
+        }
+        update: {
+          args: Prisma.WithdrawUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>
+        }
+        deleteMany: {
+          args: Prisma.WithdrawDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WithdrawUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WithdrawUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>[]
+        }
+        upsert: {
+          args: Prisma.WithdrawUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawPayload>
+        }
+        aggregate: {
+          args: Prisma.WithdrawAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWithdraw>
+        }
+        groupBy: {
+          args: Prisma.WithdrawGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WithdrawGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WithdrawCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WithdrawCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -890,6 +1040,30 @@ export const InvestmentPlanScalarFieldEnum = {
 } as const
 
 export type InvestmentPlanScalarFieldEnum = (typeof InvestmentPlanScalarFieldEnum)[keyof typeof InvestmentPlanScalarFieldEnum]
+
+
+export const WithdrawRequestScalarFieldEnum = {
+  id: 'id',
+  amout: 'amout',
+  status: 'status',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAT: 'deletedAT'
+} as const
+
+export type WithdrawRequestScalarFieldEnum = (typeof WithdrawRequestScalarFieldEnum)[keyof typeof WithdrawRequestScalarFieldEnum]
+
+
+export const WithdrawScalarFieldEnum = {
+  id: 'id',
+  amout: 'amout',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  createdAt: 'createdAt'
+} as const
+
+export type WithdrawScalarFieldEnum = (typeof WithdrawScalarFieldEnum)[keyof typeof WithdrawScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1054,6 +1228,20 @@ export type EnumRiskLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 export type ListEnumRiskLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RiskLevel[]'>
     
 
+
+/**
+ * Reference to a field of type 'WithdrawRequestStatus'
+ */
+export type EnumWithdrawRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WithdrawRequestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WithdrawRequestStatus[]'
+ */
+export type ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WithdrawRequestStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1154,6 +1342,8 @@ export type GlobalOmitConfig = {
   admin?: Prisma.AdminOmit
   investment?: Prisma.InvestmentOmit
   investmentPlan?: Prisma.InvestmentPlanOmit
+  withdrawRequest?: Prisma.WithdrawRequestOmit
+  withdraw?: Prisma.WithdrawOmit
 }
 
 /* Types for Logging */

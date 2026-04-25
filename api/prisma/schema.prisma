@@ -13,21 +13,24 @@ datasource db {
 }
 
 model User {
-  id          Int          @id @default(autoincrement())
-  firstname   String
-  lastname    String
-  email       String       @unique
-  address     String       @unique
-  phone       String       @unique
-  dob         DateTime
-  nin         String?      @unique
-  role        String       @default("user")
-  password    String
-  admins      Admin[]
-  investments Investment[]
-  ambassadors Ambassador[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id               Int               @id @default(autoincrement())
+  firstname        String
+  lastname         String
+  email            String            @unique
+  address          String            @unique
+  phone            String            @unique
+  dob              DateTime
+  nin              String?           @unique
+  role             String            @default("user")
+  password         String
+  admins           Admin[]
+  investments      Investment[]
+  ambassadors      Ambassador[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  withdrawRequests WithdrawRequest[]
+  sender           Withdraw[]        @relation("sender")
+  receiver         Withdraw[]        @relation("receiver")
 }
 
 model Ambassador {
@@ -55,7 +58,7 @@ model Investment {
   expectedProfit Float?
   startDate      DateTime         @default(now())
   endDate        DateTime?
-  txHash String?
+  txHash         String?
   status         InvestmentStatus @default(ACTIVE)
   user           User             @relation(fields: [userId], references: [id])
   plan           InvestmentPlan   @relation(fields: [planId], references: [id])
@@ -84,6 +87,27 @@ model InvestmentPlan {
   investments Investment[]
 }
 
+model WithdrawRequest {
+  id        Int                   @id @default(autoincrement())
+  amount    Float
+  status    WithdrawRequestStatus @default(PENDING)
+  userId    Int
+  user      User                  @relation(fields: [userId], references: [id])
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+  deletedAT DateTime?
+}
+
+model Withdraw {
+  id         Int      @id @default(autoincrement())
+  amount     Float
+  senderId   Int
+  receiverId Int
+  sender     User     @relation("sender", fields: [senderId], references: [id])
+  receiver   User     @relation("receiver", fields: [receiverId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
 enum AmbassadorStatus {
   PENDING
   CANCELLED
@@ -100,6 +124,12 @@ enum PayoutType {
 enum ReturnType {
   FIXED
   COMPOUND
+}
+
+enum WithdrawRequestStatus {
+  PENDING
+  REJECTED
+  ACCEPTED
 }
 
 enum RiskLevel {

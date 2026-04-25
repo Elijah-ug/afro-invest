@@ -314,6 +314,23 @@ export type EnumRiskLevelWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumRiskLevelFilter<$PrismaModel>
 }
 
+export type EnumWithdrawRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.WithdrawRequestStatus | Prisma.EnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWithdrawRequestStatusFilter<$PrismaModel> | $Enums.WithdrawRequestStatus
+}
+
+export type EnumWithdrawRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WithdrawRequestStatus | Prisma.EnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWithdrawRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.WithdrawRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWithdrawRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWithdrawRequestStatusFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -614,6 +631,23 @@ export type NestedEnumRiskLevelWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumRiskLevelFilter<$PrismaModel>
   _max?: Prisma.NestedEnumRiskLevelFilter<$PrismaModel>
+}
+
+export type NestedEnumWithdrawRequestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.WithdrawRequestStatus | Prisma.EnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWithdrawRequestStatusFilter<$PrismaModel> | $Enums.WithdrawRequestStatus
+}
+
+export type NestedEnumWithdrawRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WithdrawRequestStatus | Prisma.EnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WithdrawRequestStatus[] | Prisma.ListEnumWithdrawRequestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWithdrawRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.WithdrawRequestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWithdrawRequestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWithdrawRequestStatusFilter<$PrismaModel>
 }
 
 

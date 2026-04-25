@@ -36,6 +36,15 @@ export const ReturnType = {
 export type ReturnType = (typeof ReturnType)[keyof typeof ReturnType]
 
 
+export const WithdrawRequestStatus = {
+  PENDING: 'PENDING',
+  REJECTED: 'REJECTED',
+  ACCEPTED: 'ACCEPTED'
+} as const
+
+export type WithdrawRequestStatus = (typeof WithdrawRequestStatus)[keyof typeof WithdrawRequestStatus]
+
+
 export const RiskLevel = {
   LOW: 'LOW',
   MEDIUM: 'MEDIUM',

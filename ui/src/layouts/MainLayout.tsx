@@ -10,14 +10,16 @@ export const MainLayout = () => {
   const { data } = useLoggedinUserQuery();
   // const isAdmin = data?.data.user.email === 'testnext@gmail.com';
   // console.log('Data isAdmin ==>', isAdmin);
-
+  const usr =
+    data?.data.user.role === 'admin'
+      ? { to: '/admin', label: 'Admin Dashboard' }
+      : { to: '/dashboard', label: 'Dashboard' };
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/about', label: 'About' },
     { to: '/investment-plans', label: 'Investment Plans' },
     { to: '/profit-calculator', label: 'Profit Calculator' },
-     { to: '/admin', label: 'Admin Dashboard' },
-    data ? { to: '/dashboard', label: 'Dashboard' } : { to: '/login', label: 'Login' },
+    data ? usr : { to: '/login', label: 'Login' },
   ];
 
   const navItemClass = ({ isActive }: { isActive: boolean }) =>

@@ -7,11 +7,11 @@ import { unsuccessfulResult } from '../utils/unsuccessfulResult';
 export const index = async (req: Request, res: Response) => {
   try {
     const id = (req as any).user.id;
-    const dev = await prisma.user.findUnique({ where: { id } });
-    if (dev?.email !== 'testnext@gmail.com') {
+    const dev = await prisma.user.findUnique({ where: { id, role: 'admin' } });
+    if (!dev) {
       return res.status(403).json({ message: '403 Not Authorized!' });
     }
-    const data = await prisma.investment.findMany();
+    const data = await prisma.investment.findMany({ include: { user: true } });
     return successResult(res, { data }, 'Fetched receiver address!');
   } catch (error) {
     return unsuccessfulResult(res, { error }, 'Error fetching deleting user');

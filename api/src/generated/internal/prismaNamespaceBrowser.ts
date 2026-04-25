@@ -55,7 +55,9 @@ export const ModelName = {
   Ambassador: 'Ambassador',
   Admin: 'Admin',
   Investment: 'Investment',
-  InvestmentPlan: 'InvestmentPlan'
+  InvestmentPlan: 'InvestmentPlan',
+  WithdrawRequest: 'WithdrawRequest',
+  Withdraw: 'Withdraw'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -147,6 +149,30 @@ export const InvestmentPlanScalarFieldEnum = {
 } as const
 
 export type InvestmentPlanScalarFieldEnum = (typeof InvestmentPlanScalarFieldEnum)[keyof typeof InvestmentPlanScalarFieldEnum]
+
+
+export const WithdrawRequestScalarFieldEnum = {
+  id: 'id',
+  amout: 'amout',
+  status: 'status',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAT: 'deletedAT'
+} as const
+
+export type WithdrawRequestScalarFieldEnum = (typeof WithdrawRequestScalarFieldEnum)[keyof typeof WithdrawRequestScalarFieldEnum]
+
+
+export const WithdrawScalarFieldEnum = {
+  id: 'id',
+  amout: 'amout',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  createdAt: 'createdAt'
+} as const
+
+export type WithdrawScalarFieldEnum = (typeof WithdrawScalarFieldEnum)[keyof typeof WithdrawScalarFieldEnum]
 
 
 export const SortOrder = {

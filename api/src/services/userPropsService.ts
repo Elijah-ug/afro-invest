@@ -6,6 +6,7 @@ export const safeData: any = {
   nin: true,
   phone: true,
   dob: true,
+  address: true,
   role: true,
   investments: true,
   ambassadors: true,
